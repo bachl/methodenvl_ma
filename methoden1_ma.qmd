@@ -1,0 +1,539 @@
+---
+title: |
+       | Kommunikationsforschung mit APIs:
+       | Eine ~~nicht~~ technische Einführung
+subtitle: "Vorlesung: Methoden der empirischen Kommunikations- und Medienforschung I / Datenerhebung, Wintersemester 2023/2024"
+lang: "de"
+date: today
+date-format: "DD. MM. YYYY"
+author: Marko Bachl
+institute: Freie Universität Berlin
+format:
+  revealjs:
+      embed-resources: false
+      height: 900
+      width: 1600
+      theme: theme.scss
+      highlight-style: github-dark
+      slide-number: c
+      code-line-numbers: false
+      history: false
+      smaller: false
+      title-slide-attributes:
+        data-background-image: https://upload.wikimedia.org/wikipedia/de/7/71/Fub-logo.svg
+        data-background-position: "top right"
+        data-background-size: auto
+css: colors.css
+bibliography: references.bib
+csl: https://www.zotero.org/styles/apa
+callout-appearance: simple
+execute: 
+  eval: true
+  echo: true
+---
+
+# Hallo
+
+## Arbeitsstelle Digitale Forschungsmethoden
+
+![dall-e-3, Prompt: A team of communication researchers using digital research methods and computational methods, cyberpunk style](images/as_digimeth.png)
+
+## Dieses Bild habe ich mit einer API erstellt
+
+```{r}
+#| eval: false
+library(httr)
+library(jsonlite)
+key = readLines("openai_key.txt")
+url <- "https://api.openai.com/v1/images/generations"
+headers <- c(
+  "Content-Type" = "application/json",
+  "Authorization" = paste0("Bearer ", key)
+)
+body <- list(
+  model = "dall-e-3",
+  prompt = "A team of communication researchers using digital research methods and computational methods, cyberpunk style",
+  n = 1,
+  size = "1024x1024"
+)
+response <- POST(url, body = toJSON(body, auto_unbox = TRUE), encode = "json", add_headers(.headers=headers))
+download.file(url = content(response)$data[[1]]$url, destfile = "images/as_digimeth.png")
+```
+
+Nachmachen: 👉 `bsp_dall-e.R` (mit OpenAI-Account, kostet $0.04/Bild)
+
+## Agenda
+
+1.  Was ist eine API?
+
+2.  Verbreiteter Einsatz in PuK: Erhebung digitaler Inhalte
+
+    a)  Vor und nach der *APIcalypse*
+    
+    a)  Umsetzung mit `R` und `{httr2}`
+
+3.  Neuerer Einsatz in PuK: Nutzung von Cloud-Diensten (z.B. KI)
+
+    a)  Zero-shot classification: Kurze Einführung
+
+    b)  Zero-shot classification: Umsetzung mit der OpenAI-API
+
+# Was ist eine API?
+
+## Was ist eine API?
+
+-   **A**pplication **P**rogramming **I**nterface = Programmierschnittstelle
+    -   Austausch maschinenlesbarer Daten zwischen verschiedenen Programmen/Computern
+    
+. . . 
+
+-   **Web-APIs** nutzen die gleichen Protokolle wie Browser, aber liefern anderen Datenstrukturen
+    -   Formate sind standardisiert (z.B. XML oder JSON), Inhalte variieren
+    -   oft nutzen Plattformen für ihre eigenen (Mobil-) Apps ebenfalls APIs
+
+## Ein einfaches Beispiel
+
+![[Breaking Bad Quotes API](https://breakingbadquotes.xyz/)](images/clipboard-1478015886.png)
+
+## Ein einfaches Beispiel
+
+### Anfrage
+
+```{r}
+bb_quote <- readLines("https://api.breakingbadquotes.xyz/v1/quotes")
+```
+
+::: {.fragment}
+### Antwort
+
+```{r}
+bb_quote |> jsonlite::prettify()
+```
+:::
+
+## Einige Grundbegriffe
+
+::: {.incremental}
+- Server-Client-Prinzip: Server definiert Schnittstelle, Client kann diese abfragen
+
+- REST API: **Re**presentational **s**tate **t**ransfer, Wortneuschöpfung; beschreibt abstrakt den Aufbau eines Datennetzwerks (z.B. des WWW); *stateless*, d.h., es passiert nur bei einer Anfrage etwas.
+
+- Streaming API: Verbindung bleibt über einen Zeitraum bestehen, wenn auf dem Server etwas passiert, wird es an Client gesendet.
+
+- Endpoint (Endpunkt): URL, mit der ein API-Aufruf beginnt; Die meisten APIs haben mehrere Endpoints, in die sie verschiedene Inhalte und Dienste sortieren.
+
+- Parameter: Möglichkeit, weiter zu spezifizieren, was der API-Endpunkt liefern soll.
+
+<!-- - JSON: **J**avaScript **O**bject **N**otation; Dateiformat für hierarchisch angeordnete, nicht (zwingend) rechteckige Daten. -->
+:::
+
+## Zum Nachlesen
+
+![[@haim_computational_2023, Kapitel 5.3]](https://media.springernature.com/full/springer-static/cover-hires/book/978-3-658-40171-9?as=webp)
+
+# Verbreiteter Einsatz in PuK: Erhebung digitaler Inhalte
+
+# Vor der *APIcalypse*: Kommunikationsspuren auf Social Media
+
+## Bundestagswahlkampf 2017 auf Facebook
+
+![Datenstruktur des Projekts Multilevel Flows of Political Communication on Facebook (Bachl & Scharkow, 2020-2023)](images/clipboard-3907966241.png)
+
+- Facebook Graph API, zusätzlich YouTube Data API und Scraping
+
+- Abfrage von ca. 400 politischen FB-Seiten alle 6 Stunden über ca. ein Jahr
+
+
+<!-- ## Digitale Verhaltensspuren auf Individualebene -->
+
+<!-- ![[@winkler_individual_2022]](images/clipboard-1478384870.png) -->
+
+## Digitale Verhaltensspuren auf Individualebene
+
+![[@winkler_individual_2022]](images/clipboard-1996524043.png)
+
+<!-- ## Digitale Verhaltensspuren auf Individualebene -->
+
+<!-- ![[@winkler_individual_2022]](images/clipboard-685317092.png) -->
+
+<!-- ## Digitale Verhaltensspuren auf Individualebene -->
+
+<!-- ### Vorhersage inziviler Kommentare -->
+
+<!-- ![(Winkler, Scharkow, Bachl & Jürgens, working paper)](images/meta_offensive.png) -->
+
+## Digitale Verhaltensspuren auf Individualebene
+
+### Vorhersage des Ausstiegs aus der Diskussion
+
+![(Winkler, Scharkow, Bachl & Jürgens, working paper)](images/meta_islast.png)
+
+## Post-API-age & APIcalypse
+
+:::: {.columns}
+
+::: {.column width="50%"}
+![[@freelon_computational_2018]](images/freelon.png)
+:::
+
+::: {.column width="50%"}
+![[@bruns_after_2019]](images/bruns.png)
+:::
+
+::::
+
+## Post-API-age & APIcalypse
+
+- APIs der meisten großen Social-Media-Plattformen mehr oder weniger geschlossen
+
+    - Keine (praktikablen) Zugänge zu Facebook, Instagram, Twitter
+
+    - Eingeschränkter Zugang zu TikTok, YouTube (aber kaum zu SN-Features)
+
+    - Zugang zu kleineren Plattformen, z.B. BlueSky, Mastodon
+
+- Problem: Willkür der Anbieter
+
+- Hoffnung: EU Digital Services Act (DSA)
+
+## APIs are alive and well
+
+- Trotzdem: APIs bleiben wichtiges Werkzeug für digitale Forschungsmethoden, wenn auch (aktuell) weniger für Social-Media-Forschung
+
+- Datenzugang: [Bundestag](https://dip.bundestag.de/%C3%BCber-dip/hilfe/api), [MediaWiki Action API](https://www.mediawiki.org/wiki/API:Main_page) (u.a. Wikipedia), [Wikimedia REST API](https://wikimedia.org/api/rest_v1/#/), [YouTube](https://developers.google.com/youtube/v3?hl=de), [Telegram](https://core.telegram.org/#api-methods), [Tagesschau](https://tagesschau.api.bund.dev/), [The Guardian](https://open-platform.theguardian.com/), [DESTATIS](https://www.destatis.de/DE/Service/OpenData/genesis-api-webservice-oberflaeche.html), ...
+
+- Kommunikation mit Cloud-Diensten (2. Teil der Sitzung)
+
+# Umsetzung mit `R` und `{httr2}`
+
+## Umsetzung mit `R` und `{httr2}`
+
+- Beispiel: Aufmerksamkeit für Olaf Scholz, Robert Habeck und Christian Lindner in den letzten drei Wochen --- gemessen an den Aufrufen ihrer Wikipedia-Seiten
+
+. . . 
+
+:::: {.columns}
+
+::: {.column width="70%"}
+- Umsetzung mit [MediaWiki Action API](https://www.mediawiki.org/wiki/API:Main_page), Endpoint [PageViewInfo](https://www.mediawiki.org/wiki/Extension:PageViewInfo#API)
+
+- Nachmachen: 👉 `bsp_wikipedia.R`
+:::
+
+::: {.column width="30%"}
+![<https://httr2.r-lib.org/>](https://httr2.r-lib.org/logo.png)
+:::
+
+::::
+
+
+## Genutzte Pakete
+```{r}
+library(httr2) # Kommunikation mit API über HTTP
+library(jsonlite) # JSON-Dateien
+library(tidyverse) # Datenmanipulation und Grafik
+
+```
+
+
+## Anfrage an die API
+
+```{r}
+#| output-location: fragment
+req = request(
+  base_url = "https://de.wikipedia.org/w/api.php"
+) |> 
+  req_url_query(!!!list(
+    action = "query",
+    format = "json",
+    prop = "pageviews",
+    titles = c("Olaf_Scholz", 
+               "Robert_Habeck", 
+               "Christian_Lindner"),
+    pvipdays = 21),
+    .multi = "pipe")
+req |> 
+  req_dry_run()
+```
+
+
+## Antwort der API
+
+```{r}
+#| output-location: column-fragment
+resp = req|> 
+  req_perform()
+
+resp |> 
+  resp_body_string() |> 
+  jsonlite::prettify()
+```
+
+## Antwort konvertieren und plotten
+
+```{r}
+#| output-location: slide
+#| out-width: "1600px"
+resp |> 
+  resp_body_json() |>
+  _$query |> 
+  _$pages |> 
+  map_dfr(as_tibble) |> 
+  mutate(date = as_date(names(pageviews))) |> 
+  unnest(pageviews) |> 
+  ggplot(aes(date, pageviews, color = title)) + 
+  geom_line() + 
+  theme_minimal()
+```
+
+## Umsetzung mit `R` und `{httr2}`
+
+- Workflow: API finden, Dokumentation verstehen, Daten abfragen, aufbereiten, analysieren
+
+- Einschränkung der MediaWiki Action API: Nur letzte 60 Tage
+
+- Alternative: Wikimedia REST API 👉 `bsp_wikipedia_rest.R`
+
+
+# Neuerer Einsatz in PuK: Nutzung von Cloud-Diensten (z.B. KI)
+
+## Nutzung von Cloud-Diensten
+
+- Viele Cloud-Dienste lassen sich über APIs verwenden
+
+- Beispiele aus dem Bereich KI: [Huggingface Inference API](https://huggingface.co/docs/api-inference/index), [OpenAI API](https://platform.openai.com/docs/api-reference), [Perspective API](https://perspectiveapi.com/)
+
+- Workflow ist ähnlich: Anfrage senden, Antwort erhalten
+
+- Unterschiede: Erfordert fast immer Authentifizierung, häufig kostenpflichtig
+
+# Zero-shot classification: Kurze Einführung
+
+## Bag-of-Words Machine Learning
+
+![Abbildungen von [Philipp K. Masur](https://philippmasur.de/)](images/masur_classic_ml.png)
+
+
+## Transfer Learning
+
+![Abbildungen von [Philipp K. Masur](https://philippmasur.de/)](images/masur_transformer_ml.png)
+
+## Zero-shot classification
+
+![Abbildungen von [Philipp K. Masur](https://philippmasur.de/)](images/masur_zeroshot.png)
+
+## Zero-shot classification: Hype (?)
+
+:::: {.columns}
+
+::: {.column width="50%"}
+![[@gilardi_chatgpt_2023]](images/gilardi.png)
+:::
+
+::: {.column width="50%"}
+![[@rathje_gpt_2023]](images/rathje.png)
+:::
+
+::::
+
+# Zero-shot classification: Umsetzung mit der OpenAI-API
+
+## Zero-shot classification: OpenAI-API
+
+- Beispiel: Klassifikation von Inzivilität in Social-Media-Kommentaren
+
+. . . 
+
+- Klassifikation mit [OpenAI GPT-4](https://openai.com/gpt-4) (bekannt aus ChatGPT Premium) und `httr2`
+
+- Nachmachen: 👉 `bsp_zero_shot_openai.R` (mit OpenAI-Account)
+
+### Genutzte Pakete
+
+```{r}
+library(httr2) # Kommunikation mit API über HTTP
+library(jsonlite) # JSON-Dateien
+library(tidyverse) # Datenmanipulation und Grafik
+```
+
+## Erkennen von Inzivilität in Social-Media-Kommentaren [@stoll_developing_2023]
+
+Kommentar mit min. einer der folgenden Eigenschaften gilt als inzivil:
+
+:::: {.columns}
+
+::: {.column width="50%"}
+- Vulgäre, unangemessene Sprache, Fluchen
+- Beleidigung, Profanität
+- Entmenschlichung 
+- Sarkasmus, Spott, Zynismus
+- Negative Stereotype
+:::
+
+::: {.column width="50%"}
+- Diskriminierung
+- Androhung von Gewalt
+- Verweigerung von Rechten
+- Vorwurf der Lüge
+- Erniedrigung, fehlender Respekt, Abwertung
+:::
+::::
+
+## Untersuchungsmaterial
+
+Wir brauchen ein paar Kommentare zum Testen:
+
+- Einen klar inzivilen Kommentar
+
+- Einen klar nicht inzivilen Kommentar
+
+- Zwei mehrdeutige Kommentare:
+
+    - Einen Kommentar, der wahrscheinlich fälschlicherweise als inzivil klassifiziert wird
+    - Einen Kommentar, der wahrscheinlich fälschlicherweise als **nicht** inzivil klassifiziert wird
+
+
+## URL für Anfrage
+
+
+```{r}
+req = request(base_url = "https://api.openai.com/v1/chat/completions")
+req |> 
+  req_dry_run()
+```
+
+
+## Key zur Anmeldung bei OpenAI
+
+::: {.callout-important}
+Schlüssel und Token niemals öffentlich teilen!
+:::
+
+```{r}
+key = readLines("openai_key.txt")
+
+req |> 
+  req_auth_bearer_token(key) |> 
+  req_dry_run()
+```
+
+## Prompt (1)
+
+### Codieranweisung: Was soll KI-Assistent tun?
+```{r}
+instr = paste(readLines("instr_nodef_reason.txt"), collapse = "\n")
+cat(instr)
+```
+
+[@tornberg_how_2023]
+
+## Prompt (2)
+
+### Codiereinheiten: Was soll klassifiziert werden?
+```{r}
+cod = readLines("comments.txt")
+cat(cod, sep = "\n")
+```
+
+## Anfrage
+
+```{r}
+req |> 
+  req_auth_bearer_token(key) |> 
+  req_body_json(list(
+    model = "gpt-4",
+    messages = list(
+      list(role = "system", content = instr),
+      list(role = "user", content = cod[1])
+    ),
+    temperature = 0,
+    max_tokens = 50
+  )) |> 
+  req_dry_run()
+```
+
+## Antwort
+
+```{r gpt4call}
+#| cache: true
+#| output-location: column
+resp = req |> 
+  req_auth_bearer_token(key) |> 
+  req_body_json(list(
+    model = "gpt-4",
+    messages = list(
+      list(role = "system", content = instr),
+      list(role = "user", content = cod[1])
+    ),
+    temperature = 0,
+    max_tokens = 50
+  )) |> 
+  req_perform()
+
+resp |> 
+  resp_body_string() |> 
+  prettify()
+```
+
+## Alle Kommentare {.scrollable}
+
+```{r gpt4call2}
+#| cache: true
+#| code-fold: true
+req_list = cod |> 
+  map(~ {
+    req |> 
+      req_auth_bearer_token(key) |> 
+      req_body_json(list(
+        model = "gpt-4",
+        messages = list(
+          list(role = "system", content = instr),
+          list(role = "user", content = .x)
+        ),
+        temperature = 0,
+        max_tokens = 50
+      ))
+  })
+
+# Antworten für alle Kommentare ####
+resp_list = req_list |> 
+  req_perform_parallel()
+
+# Extrahieren und aufbereiten ####
+tibble(
+  Kommentar = cod,
+  Klassifikation = resp_list |> 
+    map_chr( ~ {
+      .x |> 
+        resp_body_json() |> 
+        _$choices |> 
+        _[[1]] |> 
+        _$message |> 
+        _$content
+    })
+) |> 
+  knitr::kable()
+```
+
+## Zero-shot classification
+
+- Generative LLMs und Natural language inference (NLI) [@laurer_less_2023]
+
+- Rasant entwickelndes Forschungsfeld:
+
+    - Verbesserungen durch weiterentwickelte Modelle
+    - Evaluation der Performance: Was geht, was (noch) nicht?
+    - Prompt engneering: Welche Codieranweisungen sind besser?
+    - Forschungethische Fragen: Biases, Reproduzierbarkeit, Abgängigkeit von proprietären Modellen
+
+- Wenn Sie sich für Inhaltsanalyse interessieren: Jetzt einsteigen!
+
+# Fragen?
+
+# Vielen Dank
+
+Marko Bachl
+
+[marko.bachl\@fu-berlin.de](mailto:marko.bachl@fu-berlin.de){.email}
+
+## Literatur {.smaller .scrollable}
