@@ -46,7 +46,7 @@
     "href": "methoden1_ma.html#ein-einfaches-beispiel-1",
     "title": "Kommunikationsforschung mit APIs:\nEine nicht technische Einführung",
     "section": "Ein einfaches Beispiel",
-    "text": "Ein einfaches Beispiel\nAnfrage\n\nbb_quote &lt;- readLines(\"https://api.breakingbadquotes.xyz/v1/quotes\")\n\n\n\nAntwort\n\nbb_quote |&gt; jsonlite::prettify()\n\n[\n    {\n        \"quote\": \"My name is Skyler White yo. My husband is Walter White... yo.\",\n        \"author\": \"Skyler White\"\n    }\n]"
+    "text": "Ein einfaches Beispiel\nAnfrage\n\nbb_quote &lt;- readLines(\"https://api.breakingbadquotes.xyz/v1/quotes\")\n\n\n\nAntwort\n\nbb_quote |&gt; jsonlite::prettify()\n\n[\n    {\n        \"quote\": \"I will put you under the jail.\",\n        \"author\": \"Hank Schrader\"\n    }\n]"
   },
   {
     "objectID": "methoden1_ma.html#grundbegriffe",
