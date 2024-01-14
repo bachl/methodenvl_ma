@@ -1,0 +1,268 @@
+[
+  {
+    "objectID": "methoden1_ma.html#arbeitsstelle-digitale-forschungsmethoden",
+    "href": "methoden1_ma.html#arbeitsstelle-digitale-forschungsmethoden",
+    "title": "Kommunikationsforschung mit APIs:\nEine nicht technische Einführung",
+    "section": "Arbeitsstelle Digitale Forschungsmethoden",
+    "text": "Arbeitsstelle Digitale Forschungsmethoden\n\ndall-e-3, Prompt: A team of communication researchers using digital research methods and computational methods, cyberpunk style"
+  },
+  {
+    "objectID": "methoden1_ma.html#dieses-bild-habe-ich-mit-einer-api-erstellt",
+    "href": "methoden1_ma.html#dieses-bild-habe-ich-mit-einer-api-erstellt",
+    "title": "Kommunikationsforschung mit APIs:\nEine nicht technische Einführung",
+    "section": "Dieses Bild habe ich mit einer API erstellt",
+    "text": "Dieses Bild habe ich mit einer API erstellt\n\nlibrary(httr)\nlibrary(jsonlite)\nkey = readLines(\"openai_key.txt\")\nurl &lt;- \"https://api.openai.com/v1/images/generations\"\nheaders &lt;- c(\n  \"Content-Type\" = \"application/json\",\n  \"Authorization\" = paste0(\"Bearer \", key)\n)\nbody &lt;- list(\n  model = \"dall-e-3\",\n  prompt = \"A team of communication researchers using digital research methods and computational methods, cyberpunk style\",\n  n = 1,\n  size = \"1024x1024\"\n)\nresponse &lt;- POST(url, body = toJSON(body, auto_unbox = TRUE), encode = \"json\", add_headers(.headers=headers))\ndownload.file(url = content(response)$data[[1]]$url, destfile = \"images/as_digimeth.png\")\n\nNachmachen: 👉 bsp_dall-e.R (mit OpenAI-Account, kostet $0.04/Bild)"
+  },
+  {
+    "objectID": "methoden1_ma.html#agenda",
+    "href": "methoden1_ma.html#agenda",
+    "title": "Kommunikationsforschung mit APIs:\nEine nicht technische Einführung",
+    "section": "Agenda",
+    "text": "Agenda\n\nWas ist eine API?\nVerbreiteter Einsatz in PuK: Erhebung digitaler Inhalte\n\nVor und nach der APIcalypse\nUmsetzung mit R und {httr2}\n\nNeuerer Einsatz in PuK: Nutzung von Cloud-Diensten (z.B. KI)\n\nZero-shot classification: Kurze Einführung\nZero-shot classification: Umsetzung mit der OpenAI-API"
+  },
+  {
+    "objectID": "methoden1_ma.html#was-ist-eine-api-1",
+    "href": "methoden1_ma.html#was-ist-eine-api-1",
+    "title": "Kommunikationsforschung mit APIs:\nEine nicht technische Einführung",
+    "section": "Was ist eine API?",
+    "text": "Was ist eine API?\n\nApplication Programming Interface = Programmierschnittstelle\n\nAustausch maschinenlesbarer Daten zwischen verschiedenen Programmen/Computern\n\n\n\n\nWeb-APIs nutzen die gleichen Protokolle wie Browser, aber liefern anderen Datenstrukturen\n\nFormate sind standardisiert (z.B. XML oder JSON), Inhalte variieren\noft nutzen Plattformen für ihre eigenen (Mobil-) Apps ebenfalls APIs"
+  },
+  {
+    "objectID": "methoden1_ma.html#ein-einfaches-beispiel",
+    "href": "methoden1_ma.html#ein-einfaches-beispiel",
+    "title": "Kommunikationsforschung mit APIs:\nEine nicht technische Einführung",
+    "section": "Ein einfaches Beispiel",
+    "text": "Ein einfaches Beispiel\n\nBreaking Bad Quotes API"
+  },
+  {
+    "objectID": "methoden1_ma.html#ein-einfaches-beispiel-1",
+    "href": "methoden1_ma.html#ein-einfaches-beispiel-1",
+    "title": "Kommunikationsforschung mit APIs:\nEine nicht technische Einführung",
+    "section": "Ein einfaches Beispiel",
+    "text": "Ein einfaches Beispiel\nAnfrage\n\nbb_quote &lt;- readLines(\"https://api.breakingbadquotes.xyz/v1/quotes\")\n\n\n\nAntwort\n\nbb_quote |&gt; jsonlite::prettify()\n\n[\n    {\n        \"quote\": \"Sometimes the forbidden fruit tastes the sweetest.\",\n        \"author\": \"Hank Schrader\"\n    }\n]"
+  },
+  {
+    "objectID": "methoden1_ma.html#einige-grundbegriffe",
+    "href": "methoden1_ma.html#einige-grundbegriffe",
+    "title": "Kommunikationsforschung mit APIs:\nEine nicht technische Einführung",
+    "section": "Einige Grundbegriffe",
+    "text": "Einige Grundbegriffe\n\n\nServer-Client-Prinzip: Server definiert Schnittstelle, Client kann diese abfragen\nREST API: Representational state transfer, Wortneuschöpfung; beschreibt abstrakt den Aufbau eines Datennetzwerks (z.B. des WWW); stateless, d.h., es passiert nur bei einer Anfrage etwas.\nStreaming API: Verbindung bleibt über einen Zeitraum bestehen, wenn auf dem Server etwas passiert, wird es an Client gesendet.\nEndpoint (Endpunkt): URL, mit der ein API-Aufruf beginnt; Die meisten APIs haben mehrere Endpoints, in die sie verschiedene Inhalte und Dienste sortieren.\nParameter: Möglichkeit, weiter zu spezifizieren, was der API-Endpunkt liefern soll."
+  },
+  {
+    "objectID": "methoden1_ma.html#zum-nachlesen",
+    "href": "methoden1_ma.html#zum-nachlesen",
+    "title": "Kommunikationsforschung mit APIs:\nEine nicht technische Einführung",
+    "section": "Zum Nachlesen",
+    "text": "Zum Nachlesen\n\n(Haim, 2023, Kapitel 5.3)"
+  },
+  {
+    "objectID": "methoden1_ma.html#bundestagswahlkampf-2017-auf-facebook",
+    "href": "methoden1_ma.html#bundestagswahlkampf-2017-auf-facebook",
+    "title": "Kommunikationsforschung mit APIs:\nEine nicht technische Einführung",
+    "section": "Bundestagswahlkampf 2017 auf Facebook",
+    "text": "Bundestagswahlkampf 2017 auf Facebook\n\nDatenstruktur des Projekts Multilevel Flows of Political Communication on Facebook (Bachl & Scharkow, 2020-2023)\nFacebook Graph API, zusätzlich YouTube Data API und Scraping\nAbfrage von ca. 400 politischen FB-Seiten alle 6 Stunden über ca. ein Jahr"
+  },
+  {
+    "objectID": "methoden1_ma.html#digitale-verhaltensspuren-auf-individualebene",
+    "href": "methoden1_ma.html#digitale-verhaltensspuren-auf-individualebene",
+    "title": "Kommunikationsforschung mit APIs:\nEine nicht technische Einführung",
+    "section": "Digitale Verhaltensspuren auf Individualebene",
+    "text": "Digitale Verhaltensspuren auf Individualebene\n\n\n\n\n\n\n(Winkler et al., 2022)"
+  },
+  {
+    "objectID": "methoden1_ma.html#digitale-verhaltensspuren-auf-individualebene-1",
+    "href": "methoden1_ma.html#digitale-verhaltensspuren-auf-individualebene-1",
+    "title": "Kommunikationsforschung mit APIs:\nEine nicht technische Einführung",
+    "section": "Digitale Verhaltensspuren auf Individualebene",
+    "text": "Digitale Verhaltensspuren auf Individualebene\nVorhersage des Ausstiegs aus der Diskussion\n\n(Winkler, Scharkow, Bachl & Jürgens, working paper)"
+  },
+  {
+    "objectID": "methoden1_ma.html#post-api-age-apicalypse",
+    "href": "methoden1_ma.html#post-api-age-apicalypse",
+    "title": "Kommunikationsforschung mit APIs:\nEine nicht technische Einführung",
+    "section": "Post-API-age & APIcalypse",
+    "text": "Post-API-age & APIcalypse\n\n\n\n\n\n(Freelon, 2018)\n\n\n\n\n\n\n(Bruns, 2019)"
+  },
+  {
+    "objectID": "methoden1_ma.html#post-api-age-apicalypse-1",
+    "href": "methoden1_ma.html#post-api-age-apicalypse-1",
+    "title": "Kommunikationsforschung mit APIs:\nEine nicht technische Einführung",
+    "section": "Post-API-age & APIcalypse",
+    "text": "Post-API-age & APIcalypse\n\nAPIs der meisten großen Social-Media-Plattformen mehr oder weniger geschlossen\n\nKeine (praktikablen) Zugänge zu Facebook, Instagram, Twitter\nEingeschränkter Zugang zu TikTok, YouTube (aber kaum zu SN-Features)\nZugang zu kleineren Plattformen, z.B. BlueSky, Mastodon\n\nProblem: Willkür der Anbieter\nHoffnung: EU Digital Services Act (DSA)"
+  },
+  {
+    "objectID": "methoden1_ma.html#apis-are-alive-and-well",
+    "href": "methoden1_ma.html#apis-are-alive-and-well",
+    "title": "Kommunikationsforschung mit APIs:\nEine nicht technische Einführung",
+    "section": "APIs are alive and well",
+    "text": "APIs are alive and well\n\nTrotzdem: APIs bleiben wichtiges Werkzeug für digitale Forschungsmethoden, wenn auch (aktuell) weniger für Social-Media-Forschung\nDatenzugang: Bundestag, MediaWiki Action API (u.a. Wikipedia), Wikimedia REST API, YouTube, Telegram, Tagesschau, The Guardian, DESTATIS, …\nKommunikation mit Cloud-Diensten (2. Teil der Sitzung)"
+  },
+  {
+    "objectID": "methoden1_ma.html#umsetzung-mit-r-und-httr2-1",
+    "href": "methoden1_ma.html#umsetzung-mit-r-und-httr2-1",
+    "title": "Kommunikationsforschung mit APIs:\nEine nicht technische Einführung",
+    "section": "Umsetzung mit R und {httr2}",
+    "text": "Umsetzung mit R und {httr2}\n\nBeispiel: Aufmerksamkeit für Olaf Scholz, Robert Habeck und Christian Lindner in den letzten drei Wochen — gemessen an den Aufrufen ihrer Wikipedia-Seiten\n\n\n\n\n\nUmsetzung mit MediaWiki Action API, Endpoint PageViewInfo\nNachmachen: 👉 bsp_wikipedia.R\n\n\n\n\n\nhttps://httr2.r-lib.org/"
+  },
+  {
+    "objectID": "methoden1_ma.html#genutzte-pakete",
+    "href": "methoden1_ma.html#genutzte-pakete",
+    "title": "Kommunikationsforschung mit APIs:\nEine nicht technische Einführung",
+    "section": "Genutzte Pakete",
+    "text": "Genutzte Pakete\n\nlibrary(httr2) # Kommunikation mit API über HTTP\nlibrary(jsonlite) # JSON-Dateien\nlibrary(tidyverse) # Datenmanipulation und Grafik"
+  },
+  {
+    "objectID": "methoden1_ma.html#anfrage-an-die-api",
+    "href": "methoden1_ma.html#anfrage-an-die-api",
+    "title": "Kommunikationsforschung mit APIs:\nEine nicht technische Einführung",
+    "section": "Anfrage an die API",
+    "text": "Anfrage an die API\n\nreq = request(\n  base_url = \"https://de.wikipedia.org/w/api.php\"\n) |&gt; \n  req_url_query(!!!list(\n    action = \"query\",\n    format = \"json\",\n    prop = \"pageviews\",\n    titles = c(\"Olaf_Scholz\", \n               \"Robert_Habeck\", \n               \"Christian_Lindner\"),\n    pvipdays = 21),\n    .multi = \"pipe\")\nreq |&gt; \n  req_dry_run()\n\n\n\nGET /w/api.php?action=query&format=json&prop=pageviews&titles=Olaf_Scholz|Robert_Habeck|Christian_Lindner&pvipdays=21 HTTP/1.1\nHost: de.wikipedia.org\nUser-Agent: httr2/1.0.0 r-curl/5.2.0 libcurl/8.1.2\nAccept: */*\nAccept-Encoding: deflate, gzip"
+  },
+  {
+    "objectID": "methoden1_ma.html#antwort-der-api",
+    "href": "methoden1_ma.html#antwort-der-api",
+    "title": "Kommunikationsforschung mit APIs:\nEine nicht technische Einführung",
+    "section": "Antwort der API",
+    "text": "Antwort der API\n\n\nresp = req|&gt; \n  req_perform()\n\nresp |&gt; \n  resp_body_string() |&gt; \n  jsonlite::prettify()\n\n\n{\n    \"batchcomplete\": \"\",\n    \"query\": {\n        \"normalized\": [\n            {\n                \"from\": \"Olaf_Scholz\",\n                \"to\": \"Olaf Scholz\"\n            },\n            {\n                \"from\": \"Robert_Habeck\",\n                \"to\": \"Robert Habeck\"\n            },\n            {\n                \"from\": \"Christian_Lindner\",\n                \"to\": \"Christian Lindner\"\n            }\n        ],\n        \"pages\": {\n            \"855225\": {\n                \"pageid\": 855225,\n                \"ns\": 0,\n                \"title\": \"Christian Lindner\",\n                \"pageviews\": {\n                    \"2023-12-24\": 1353,\n                    \"2023-12-25\": 1384,\n                    \"2023-12-26\": 1470,\n                    \"2023-12-27\": 1627,\n                    \"2023-12-28\": 1405,\n                    \"2023-12-29\": 1219,\n                    \"2023-12-30\": 2735,\n                    \"2023-12-31\": 2239,\n                    \"2024-01-01\": 2193,\n                    \"2024-01-02\": 1758,\n                    \"2024-01-03\": 2020,\n                    \"2024-01-04\": 1597,\n                    \"2024-01-05\": 1925,\n                    \"2024-01-06\": 4738,\n                    \"2024-01-07\": 3769,\n                    \"2024-01-08\": 2967,\n                    \"2024-01-09\": 2251,\n                    \"2024-01-10\": 3807,\n                    \"2024-01-11\": 3208,\n                    \"2024-01-12\": 2217,\n                    \"2024-01-13\": null\n                }\n            },\n            \"293388\": {\n                \"pageid\": 293388,\n                \"ns\": 0,\n                \"title\": \"Olaf Scholz\",\n                \"pageviews\": {\n                    \"2023-12-24\": 2437,\n                    \"2023-12-25\": 2834,\n                    \"2023-12-26\": 2593,\n                    \"2023-12-27\": 2902,\n                    \"2023-12-28\": 2369,\n                    \"2023-12-29\": 2522,\n                    \"2023-12-30\": 2724,\n                    \"2023-12-31\": 7523,\n                    \"2024-01-01\": 3596,\n                    \"2024-01-02\": 2782,\n                    \"2024-01-03\": 2553,\n                    \"2024-01-04\": 3805,\n                    \"2024-01-05\": 4057,\n                    \"2024-01-06\": 3874,\n                    \"2024-01-07\": 4349,\n                    \"2024-01-08\": 5224,\n                    \"2024-01-09\": 4428,\n                    \"2024-01-10\": 3938,\n                    \"2024-01-11\": 4656,\n                    \"2024-01-12\": 3874,\n                    \"2024-01-13\": null\n                }\n            },\n            \"1569620\": {\n                \"pageid\": 1569620,\n                \"ns\": 0,\n                \"title\": \"Robert Habeck\",\n                \"pageviews\": {\n                    \"2023-12-24\": 2911,\n                    \"2023-12-25\": 3187,\n                    \"2023-12-26\": 3000,\n                    \"2023-12-27\": 2997,\n                    \"2023-12-28\": 2480,\n                    \"2023-12-29\": 2204,\n                    \"2023-12-30\": 2428,\n                    \"2023-12-31\": 3029,\n                    \"2024-01-01\": 2490,\n                    \"2024-01-02\": 2058,\n                    \"2024-01-03\": 2022,\n                    \"2024-01-04\": 4720,\n                    \"2024-01-05\": 23330,\n                    \"2024-01-06\": 12211,\n                    \"2024-01-07\": 8450,\n                    \"2024-01-08\": 11948,\n                    \"2024-01-09\": 7736,\n                    \"2024-01-10\": 7786,\n                    \"2024-01-11\": 5899,\n                    \"2024-01-12\": 5095,\n                    \"2024-01-13\": null\n                }\n            }\n        }\n    }\n}"
+  },
+  {
+    "objectID": "methoden1_ma.html#antwort-konvertieren-und-plotten",
+    "href": "methoden1_ma.html#antwort-konvertieren-und-plotten",
+    "title": "Kommunikationsforschung mit APIs:\nEine nicht technische Einführung",
+    "section": "Antwort konvertieren und plotten",
+    "text": "Antwort konvertieren und plotten\n\nresp |&gt; \n  resp_body_json() |&gt;\n  _$query |&gt; \n  _$pages |&gt; \n  map_dfr(as_tibble) |&gt; \n  mutate(date = as_date(names(pageviews))) |&gt; \n  unnest(pageviews) |&gt; \n  ggplot(aes(date, pageviews, color = title)) + \n  geom_line() + \n  theme_minimal()"
+  },
+  {
+    "objectID": "methoden1_ma.html#antwort-konvertieren-und-plotten-output",
+    "href": "methoden1_ma.html#antwort-konvertieren-und-plotten-output",
+    "title": "Kommunikationsforschung mit APIs:\nEine nicht technische Einführung",
+    "section": "Antwort konvertieren und plotten",
+    "text": "Antwort konvertieren und plotten"
+  },
+  {
+    "objectID": "methoden1_ma.html#umsetzung-mit-r-und-httr2-2",
+    "href": "methoden1_ma.html#umsetzung-mit-r-und-httr2-2",
+    "title": "Kommunikationsforschung mit APIs:\nEine nicht technische Einführung",
+    "section": "Umsetzung mit R und {httr2}",
+    "text": "Umsetzung mit R und {httr2}\n\nWorkflow: API finden, Dokumentation verstehen, Daten abfragen, aufbereiten, analysieren\nEinschränkung der MediaWiki Action API: Nur letzte 60 Tage\nAlternative: Wikimedia REST API 👉 bsp_wikipedia_rest.R"
+  },
+  {
+    "objectID": "methoden1_ma.html#nutzung-von-cloud-diensten",
+    "href": "methoden1_ma.html#nutzung-von-cloud-diensten",
+    "title": "Kommunikationsforschung mit APIs:\nEine nicht technische Einführung",
+    "section": "Nutzung von Cloud-Diensten",
+    "text": "Nutzung von Cloud-Diensten\n\nViele Cloud-Dienste lassen sich über APIs verwenden\nBeispiele aus dem Bereich KI: Huggingface Inference API, OpenAI API, Perspective API\nWorkflow ist ähnlich: Anfrage senden, Antwort erhalten\nUnterschiede: Erfordert fast immer Authentifizierung, häufig kostenpflichtig"
+  },
+  {
+    "objectID": "methoden1_ma.html#bag-of-words-machine-learning",
+    "href": "methoden1_ma.html#bag-of-words-machine-learning",
+    "title": "Kommunikationsforschung mit APIs:\nEine nicht technische Einführung",
+    "section": "Bag-of-Words Machine Learning",
+    "text": "Bag-of-Words Machine Learning\n\nAbbildungen von Philipp K. Masur"
+  },
+  {
+    "objectID": "methoden1_ma.html#transfer-learning",
+    "href": "methoden1_ma.html#transfer-learning",
+    "title": "Kommunikationsforschung mit APIs:\nEine nicht technische Einführung",
+    "section": "Transfer Learning",
+    "text": "Transfer Learning\n\nAbbildungen von Philipp K. Masur"
+  },
+  {
+    "objectID": "methoden1_ma.html#zero-shot-classification",
+    "href": "methoden1_ma.html#zero-shot-classification",
+    "title": "Kommunikationsforschung mit APIs:\nEine nicht technische Einführung",
+    "section": "Zero-shot classification",
+    "text": "Zero-shot classification\n\nAbbildungen von Philipp K. Masur"
+  },
+  {
+    "objectID": "methoden1_ma.html#zero-shot-classification-hype",
+    "href": "methoden1_ma.html#zero-shot-classification-hype",
+    "title": "Kommunikationsforschung mit APIs:\nEine nicht technische Einführung",
+    "section": "Zero-shot classification: Hype (?)",
+    "text": "Zero-shot classification: Hype (?)\n\n\n\n\n\n(Gilardi et al., 2023)\n\n\n\n\n\n\n(Rathje et al., 2023)"
+  },
+  {
+    "objectID": "methoden1_ma.html#zero-shot-classification-openai-api",
+    "href": "methoden1_ma.html#zero-shot-classification-openai-api",
+    "title": "Kommunikationsforschung mit APIs:\nEine nicht technische Einführung",
+    "section": "Zero-shot classification: OpenAI-API",
+    "text": "Zero-shot classification: OpenAI-API\n\nBeispiel: Klassifikation von Inzivilität in Social-Media-Kommentaren\n\n\n\nKlassifikation mit OpenAI GPT-4 (bekannt aus ChatGPT Premium) und httr2\nNachmachen: 👉 bsp_zero_shot_openai.R (mit OpenAI-Account)\n\nGenutzte Pakete\n\nlibrary(httr2) # Kommunikation mit API über HTTP\nlibrary(jsonlite) # JSON-Dateien\nlibrary(tidyverse) # Datenmanipulation und Grafik"
+  },
+  {
+    "objectID": "methoden1_ma.html#erkennen-von-inzivilität-in-social-media-kommentaren-stoll_developing_2023",
+    "href": "methoden1_ma.html#erkennen-von-inzivilität-in-social-media-kommentaren-stoll_developing_2023",
+    "title": "Kommunikationsforschung mit APIs:\nEine nicht technische Einführung",
+    "section": "Erkennen von Inzivilität in Social-Media-Kommentaren (Stoll et al., 2023)",
+    "text": "Erkennen von Inzivilität in Social-Media-Kommentaren (Stoll et al., 2023)\nKommentar mit min. einer der folgenden Eigenschaften gilt als inzivil:\n\n\n\nVulgäre, unangemessene Sprache, Fluchen\nBeleidigung, Profanität\nEntmenschlichung\nSarkasmus, Spott, Zynismus\nNegative Stereotype\n\n\n\nDiskriminierung\nAndrohung von Gewalt\nVerweigerung von Rechten\nVorwurf der Lüge\nErniedrigung, fehlender Respekt, Abwertung"
+  },
+  {
+    "objectID": "methoden1_ma.html#untersuchungsmaterial",
+    "href": "methoden1_ma.html#untersuchungsmaterial",
+    "title": "Kommunikationsforschung mit APIs:\nEine nicht technische Einführung",
+    "section": "Untersuchungsmaterial",
+    "text": "Untersuchungsmaterial\nWir brauchen ein paar Kommentare zum Testen:\n\nEinen klar inzivilen Kommentar\nEinen klar nicht inzivilen Kommentar\nZwei mehrdeutige Kommentare:\n\nEinen Kommentar, der wahrscheinlich fälschlicherweise als inzivil klassifiziert wird\nEinen Kommentar, der wahrscheinlich fälschlicherweise als nicht inzivil klassifiziert wird"
+  },
+  {
+    "objectID": "methoden1_ma.html#url-für-anfrage",
+    "href": "methoden1_ma.html#url-für-anfrage",
+    "title": "Kommunikationsforschung mit APIs:\nEine nicht technische Einführung",
+    "section": "URL für Anfrage",
+    "text": "URL für Anfrage\n\nreq = request(base_url = \"https://api.openai.com/v1/chat/completions\")\nreq |&gt; \n  req_dry_run()\n\nGET /v1/chat/completions HTTP/1.1\nHost: api.openai.com\nUser-Agent: httr2/1.0.0 r-curl/5.2.0 libcurl/8.1.2\nAccept: */*\nAccept-Encoding: deflate, gzip"
+  },
+  {
+    "objectID": "methoden1_ma.html#key-zur-anmeldung-bei-openai",
+    "href": "methoden1_ma.html#key-zur-anmeldung-bei-openai",
+    "title": "Kommunikationsforschung mit APIs:\nEine nicht technische Einführung",
+    "section": "Key zur Anmeldung bei OpenAI",
+    "text": "Key zur Anmeldung bei OpenAI\n\n\n\n\n\n\nSchlüssel und Token niemals öffentlich teilen!\n\n\n\n\nkey = readLines(\"openai_key.txt\")\n\nreq |&gt; \n  req_auth_bearer_token(key) |&gt; \n  req_dry_run()\n\nGET /v1/chat/completions HTTP/1.1\nHost: api.openai.com\nUser-Agent: httr2/1.0.0 r-curl/5.2.0 libcurl/8.1.2\nAccept: */*\nAccept-Encoding: deflate, gzip\nAuthorization: &lt;REDACTED&gt;"
+  },
+  {
+    "objectID": "methoden1_ma.html#prompt-1",
+    "href": "methoden1_ma.html#prompt-1",
+    "title": "Kommunikationsforschung mit APIs:\nEine nicht technische Einführung",
+    "section": "Prompt (1)",
+    "text": "Prompt (1)\nCodieranweisung: Was soll KI-Assistent tun?\n\ninstr = paste(readLines(\"instr_nodef_reason.txt\"), collapse = \"\\n\")\ncat(instr)\n\nYour task is to evaluate whether a comment contains incivility.\n\nYou should assign the comment a numeric label, 1 or 0.\n1. The comment contains incivility.\n0. The comment does not contain incivility.\n\nAnswer with the number 0 or the number 1, followed by a semi-colon and then a brief motivation. For instance: \"1; The comment is clearly incivil. It has many elements of an incivil comment, such as ...\" Do not use quotation marks.\n\n\n(Törnberg, 2023)"
+  },
+  {
+    "objectID": "methoden1_ma.html#prompt-2",
+    "href": "methoden1_ma.html#prompt-2",
+    "title": "Kommunikationsforschung mit APIs:\nEine nicht technische Einführung",
+    "section": "Prompt (2)",
+    "text": "Prompt (2)\nCodiereinheiten: Was soll klassifiziert werden?\n\ncod = readLines(\"comments.txt\")\ncat(cod, sep = \"\\n\")\n\nGet back where you came from!!!!\nWhat a nice foto of you! Love it &lt;3\nYou look better on fotos.\nSure, let's all go out and kill babies.\nFor a woman, you almost made sense here."
+  },
+  {
+    "objectID": "methoden1_ma.html#anfrage-1",
+    "href": "methoden1_ma.html#anfrage-1",
+    "title": "Kommunikationsforschung mit APIs:\nEine nicht technische Einführung",
+    "section": "Anfrage",
+    "text": "Anfrage\n\nreq |&gt; \n  req_auth_bearer_token(key) |&gt; \n  req_body_json(list(\n    model = \"gpt-4\",\n    messages = list(\n      list(role = \"system\", content = instr),\n      list(role = \"user\", content = cod[1])\n    ),\n    temperature = 0,\n    max_tokens = 50\n  )) |&gt; \n  req_dry_run()\n\nPOST /v1/chat/completions HTTP/1.1\nHost: api.openai.com\nUser-Agent: httr2/1.0.0 r-curl/5.2.0 libcurl/8.1.2\nAccept: */*\nAccept-Encoding: deflate, gzip\nAuthorization: &lt;REDACTED&gt;\nContent-Type: application/json\nContent-Length: 593\n\n{\"model\":\"gpt-4\",\"messages\":[{\"role\":\"system\",\"content\":\"Your task is to evaluate whether a comment contains incivility.\\n\\nYou should assign the comment a numeric label, 1 or 0.\\n1. The comment contains incivility.\\n0. The comment does not contain incivility.\\n\\nAnswer with the number 0 or the number 1, followed by a semi-colon and then a brief motivation. For instance: \\\"1; The comment is clearly incivil. It has many elements of an incivil comment, such as ...\\\" Do not use quotation marks.\"},{\"role\":\"user\",\"content\":\"Get back where you came from!!!!\"}],\"temperature\":0,\"max_tokens\":50}"
+  },
+  {
+    "objectID": "methoden1_ma.html#antwort-1",
+    "href": "methoden1_ma.html#antwort-1",
+    "title": "Kommunikationsforschung mit APIs:\nEine nicht technische Einführung",
+    "section": "Antwort",
+    "text": "Antwort\n\n\nresp = req |&gt; \n  req_auth_bearer_token(key) |&gt; \n  req_body_json(list(\n    model = \"gpt-4\",\n    messages = list(\n      list(role = \"system\", content = instr),\n      list(role = \"user\", content = cod[1])\n    ),\n    temperature = 0,\n    max_tokens = 50\n  )) |&gt; \n  req_perform()\n\nresp |&gt; \n  resp_body_string() |&gt; \n  prettify()\n\n\n{\n    \"id\": \"chatcmpl-8giNlEym3eWA6oAZvrJ1dc3ip7hoD\",\n    \"object\": \"chat.completion\",\n    \"created\": 1705191073,\n    \"model\": \"gpt-4-0613\",\n    \"choices\": [\n        {\n            \"index\": 0,\n            \"message\": {\n                \"role\": \"assistant\",\n                \"content\": \"1; The comment is incivil as it is disrespectful and offensive, suggesting the person should leave or is not welcome.\"\n            },\n            \"logprobs\": null,\n            \"finish_reason\": \"stop\"\n        }\n    ],\n    \"usage\": {\n        \"prompt_tokens\": 122,\n        \"completion_tokens\": 24,\n        \"total_tokens\": 146\n    },\n    \"system_fingerprint\": null\n}"
+  },
+  {
+    "objectID": "methoden1_ma.html#alle-kommentare",
+    "href": "methoden1_ma.html#alle-kommentare",
+    "title": "Kommunikationsforschung mit APIs:\nEine nicht technische Einführung",
+    "section": "Alle Kommentare",
+    "text": "Alle Kommentare\n\n\nCode\nreq_list = cod |&gt; \n  map(~ {\n    req |&gt; \n      req_auth_bearer_token(key) |&gt; \n      req_body_json(list(\n        model = \"gpt-4\",\n        messages = list(\n          list(role = \"system\", content = instr),\n          list(role = \"user\", content = .x)\n        ),\n        temperature = 0,\n        max_tokens = 50\n      ))\n  })\n\n# Antworten für alle Kommentare ####\nresp_list = req_list |&gt; \n  req_perform_parallel()\n\n# Extrahieren und aufbereiten ####\ntibble(\n  Kommentar = cod,\n  Klassifikation = resp_list |&gt; \n    map_chr( ~ {\n      .x |&gt; \n        resp_body_json() |&gt; \n        _$choices |&gt; \n        _[[1]] |&gt; \n        _$message |&gt; \n        _$content\n    })\n) |&gt; \n  knitr::kable()\n\n\n\n\n\n\n\n\n\nKommentar\nKlassifikation\n\n\n\n\nGet back where you came from!!!!\n1; The comment is incivil as it is disrespectful and offensive, suggesting a hostile attitude towards the recipient.\n\n\nWhat a nice foto of you! Love it &lt;3\n0; The comment is positive and complimentary, showing no signs of incivility.\n\n\nYou look better on fotos.\n1; The comment is incivil as it implies that the person does not look good in person, which can be considered as a form of insult.\n\n\nSure, let’s all go out and kill babies.\n1; The comment is incivil as it promotes violence and harm, which is inappropriate and offensive.\n\n\nFor a woman, you almost made sense here.\n1; The comment is incivil as it contains a sexist remark, implying that women generally do not make sense."
+  },
+  {
+    "objectID": "methoden1_ma.html#zero-shot-classification-1",
+    "href": "methoden1_ma.html#zero-shot-classification-1",
+    "title": "Kommunikationsforschung mit APIs:\nEine nicht technische Einführung",
+    "section": "Zero-shot classification",
+    "text": "Zero-shot classification\n\nGenerative LLMs und Natural language inference (NLI) (Laurer et al., 2023)\nRasant entwickelndes Forschungsfeld:\n\nVerbesserungen durch weiterentwickelte Modelle\nEvaluation der Performance: Was geht, was (noch) nicht?\nPrompt engneering: Welche Codieranweisungen sind besser?\nForschungethische Fragen: Biases, Reproduzierbarkeit, Abgängigkeit von proprietären Modellen\n\nWenn Sie sich für Inhaltsanalyse interessieren: Jetzt einsteigen!"
+  },
+  {
+    "objectID": "methoden1_ma.html#literatur",
+    "href": "methoden1_ma.html#literatur",
+    "title": "Kommunikationsforschung mit APIs:\nEine nicht technische Einführung",
+    "section": "Literatur",
+    "text": "Literatur\n\n\n\n\n\n\nBruns, A. (2019). After the „APIcalypse“: social media platforms and their fight against critical scholarly research. Information, Communication & Society, 22(11), 1544–1566. https://doi.org/gf8r25\n\n\nFreelon, D. (2018). Computational research in the post-API age. Political Communication, 35(4), 665–668. https://doi.org/gfs6ng\n\n\nGilardi, F., Alizadeh, M., & Kubli, M. (2023). ChatGPT outperforms crowd workers for text-annotation tasks. Proceedings of the National Academy of Sciences, 120(30), e2305016120. https://doi.org/10.1073/pnas.2305016120\n\n\nHaim, M. (2023). Computational Communication Science: Eine Einführung. Springer Fachmedien Wiesbaden. https://doi.org/10.1007/978-3-658-40171-9\n\n\nLaurer, M., Atteveldt, W. van, Casas, A., & Welbers, K. (2023). Less annotating, more classifying: Addressing the data scarcity issue of supervised machine learning with deep transfer learning and BERT-NLI. Political Analysis, 1–17. https://doi.org/10.1017/pan.2023.20\n\n\nRathje, S., Mirea, D.-M., Sucholutsky, I., Marjieh, R., Robertson, C., & Bavel, J. J. V. (2023). GPT is an effective tool for multilingual psychological text analysis. PsyArXiv. https://doi.org/10.31234/osf.io/sekf5\n\n\nStoll, A., Wilms, L., & Ziegele, M. (2023). Developing an incivility dictionary for German online discussions – a semi-automated approach combining human and artificial knowledge. Communication Methods and Measures, 17(2), 131–149. https://doi.org/gsnfdn\n\n\nTörnberg, P. (2023). How to use LLMs for text analysis. arXiv. https://doi.org/10.48550/arXiv.2307.13106\n\n\nWinkler, Y., Bachl, M., & Scharkow, M. (2022). Individual users’ participation on political Facebook pages. Journal of Quantitative Description: Digital Media, 2. https://doi.org/gs6x22"
+  }
+]
