@@ -46,3 +46,6 @@ po/*~
 rsconnect/
 
 .DS_Store
+hf_key.txt
+openai_key.txt
+text_analysis_fundamentals.pptx
