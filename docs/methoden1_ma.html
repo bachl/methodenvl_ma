@@ -458,6 +458,12 @@ Marko Bachl
 </div>
 <p>Nachmachen: 👉 <code>bsp_dall-e.R</code> (mit OpenAI-Account, kostet $0.04/Bild)</p>
 </section>
+<section id="präsentation-und-code" class="slide level2">
+<h2>Präsentation und Code</h2>
+
+<img data-src="methoden1_ma_files/figure-revealjs/unnamed-chunk-2-1.png" style="width:60.0%" class="r-stretch quarto-figure-left"><p>Präsentation: <a href="https://bachl.github.io/methodenvl_ma/" class="uri">https://bachl.github.io/methodenvl_ma/</a></p>
+<p>Code: <a href="https://github.com/bachl/methodenvl_ma" class="uri">https://github.com/bachl/methodenvl_ma</a></p>
+</section>
 <section id="agenda" class="slide level2">
 <h2>Agenda</h2>
 <ol type="1">
@@ -515,8 +521,8 @@ Marko Bachl
 <div class="cell-output cell-output-stdout">
 <pre><code>[
     {
-        "quote": "Sometimes the forbidden fruit tastes the sweetest.",
-        "author": "Hank Schrader"
+        "quote": "My name is Skyler White yo. My husband is Walter White... yo.",
+        "author": "Skyler White"
     }
 ]
  </code></pre>
@@ -524,21 +530,21 @@ Marko Bachl
 </div>
 </div>
 </section>
-<section id="einige-grundbegriffe" class="slide level2">
-<h2>Einige Grundbegriffe</h2>
+<section id="grundbegriffe" class="slide level2">
+<h2>Grundbegriffe</h2>
 <div>
 <ul>
 <li class="fragment"><p>Server-Client-Prinzip: Server definiert Schnittstelle, Client kann diese abfragen</p></li>
 <li class="fragment"><p>REST API: <strong>Re</strong>presentational <strong>s</strong>tate <strong>t</strong>ransfer, Wortneuschöpfung; beschreibt abstrakt den Aufbau eines Datennetzwerks (z.B. des WWW); <em>stateless</em>, d.h., es passiert nur bei einer Anfrage etwas.</p></li>
 <li class="fragment"><p>Streaming API: Verbindung bleibt über einen Zeitraum bestehen, wenn auf dem Server etwas passiert, wird es an Client gesendet.</p></li>
-<li class="fragment"><p>Endpoint (Endpunkt): URL, mit der ein API-Aufruf beginnt; Die meisten APIs haben mehrere Endpoints, in die sie verschiedene Inhalte und Dienste sortieren.</p></li>
-<li class="fragment"><p>Parameter: Möglichkeit, weiter zu spezifizieren, was der API-Endpunkt liefern soll.</p></li>
+<li class="fragment"><p>Endpoint: URL, mit der ein API-Aufruf beginnt; Die meisten APIs haben mehrere Endpoints, in die sie verschiedene Inhalte und Dienste sortieren.</p></li>
+<li class="fragment"><p>Parameter: Möglichkeit, weiter zu spezifizieren, was der API-Endpoint liefern soll.</p></li>
 </ul>
 <!-- - JSON: **J**avaScript **O**bject **N**otation; Dateiformat für hierarchisch angeordnete, nicht (zwingend) rechteckige Daten. -->
 </div>
 </section>
-<section id="zum-nachlesen" class="slide level2">
-<h2>Zum Nachlesen</h2>
+<section id="nachlesen" class="slide level2">
+<h2>Nachlesen</h2>
 
 <img data-src="https://media.springernature.com/full/springer-static/cover-hires/book/978-3-658-40171-9?as=webp.png" class="r-stretch quarto-figure-center"><p class="caption"><span class="citation" data-cites="haim_computational_2023">(<a href="#/literatur" role="doc-biblioref" onclick="">Haim, 2023, Kapitel 5.3</a>)</span></p></section></section>
 <section id="verbreiteter-einsatz-in-puk-erhebung-digitaler-inhalte" class="title-slide slide level1 center">
@@ -820,7 +826,7 @@ Accept-Encoding: deflate, gzip</code></pre>
 </section>
 <section id="antwort-konvertieren-und-plotten-output" class="slide level2 output-location-slide"><h2>Antwort konvertieren und plotten</h2><div class="cell output-location-slide">
 <div class="cell-output-display">
-<p><img data-src="methoden1_ma_files/figure-revealjs/unnamed-chunk-7-1.png" width="1600"></p>
+<p><img data-src="methoden1_ma_files/figure-revealjs/unnamed-chunk-8-1.png" width="1600"></p>
 </div>
 </div></section><section id="umsetzung-mit-r-und-httr2-2" class="slide level2">
 <h2>Umsetzung mit <code>R</code> und <code>{httr2}</code></h2>
@@ -906,7 +912,7 @@ Accept-Encoding: deflate, gzip</code></pre>
 </section>
 <section id="erkennen-von-inzivilität-in-social-media-kommentaren-stoll_developing_2023" class="slide level2">
 <h2>Erkennen von Inzivilität in Social-Media-Kommentaren <span class="citation" data-cites="stoll_developing_2023">(<a href="#/literatur" role="doc-biblioref" onclick="">Stoll et al., 2023</a>)</span></h2>
-<p>Kommentar mit min. einer der folgenden Eigenschaften gilt als inzivil:</p>
+<p>Kommentar mit mindestens einer der folgenden Eigenschaften gilt als inzivil:</p>
 <div class="columns">
 <div class="column" style="width:50%;">
 <ul>
@@ -935,8 +941,8 @@ Accept-Encoding: deflate, gzip</code></pre>
 <li><p>Einen klar nicht inzivilen Kommentar</p></li>
 <li><p>Zwei mehrdeutige Kommentare:</p>
 <ul>
-<li>Einen Kommentar, der wahrscheinlich fälschlicherweise als inzivil klassifiziert wird</li>
-<li>Einen Kommentar, der wahrscheinlich fälschlicherweise als <strong>nicht</strong> inzivil klassifiziert wird</li>
+<li>Einen <em>nicht</em> inzivilen Kommentar, der fälschlicherweise als inzivil klassifiziert wird</li>
+<li>Einen inzivilen Kommentar, der fälschlicherweise als <em>nicht</em> inzivil klassifiziert wird</li>
 </ul></li>
 </ul>
 </section>

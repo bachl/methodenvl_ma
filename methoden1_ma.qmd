@@ -62,6 +62,20 @@ download.file(url = content(response)$data[[1]]$url, destfile = "images/as_digim
 
 Nachmachen: 👉 `bsp_dall-e.R` (mit OpenAI-Account, kostet $0.04/Bild)
 
+## Präsentation und Code
+
+```{r}
+#| echo: false
+#| fig-align: left
+#| fig-link: https://bachl.github.io/methodenvl_ma/
+#| out.width: "60%"
+plot(qrcode::qr_code("https://bachl.github.io/methodenvl_ma/"))
+```
+
+Präsentation: <https://bachl.github.io/methodenvl_ma/>
+
+Code: <https://github.com/bachl/methodenvl_ma>
+
 ## Agenda
 
 1.  Was ist eine API?
@@ -111,7 +125,7 @@ bb_quote |> jsonlite::prettify()
 ```
 :::
 
-## Einige Grundbegriffe
+## Grundbegriffe
 
 ::: {.incremental}
 - Server-Client-Prinzip: Server definiert Schnittstelle, Client kann diese abfragen
@@ -120,14 +134,14 @@ bb_quote |> jsonlite::prettify()
 
 - Streaming API: Verbindung bleibt über einen Zeitraum bestehen, wenn auf dem Server etwas passiert, wird es an Client gesendet.
 
-- Endpoint (Endpunkt): URL, mit der ein API-Aufruf beginnt; Die meisten APIs haben mehrere Endpoints, in die sie verschiedene Inhalte und Dienste sortieren.
+- Endpoint: URL, mit der ein API-Aufruf beginnt; Die meisten APIs haben mehrere Endpoints, in die sie verschiedene Inhalte und Dienste sortieren.
 
-- Parameter: Möglichkeit, weiter zu spezifizieren, was der API-Endpunkt liefern soll.
+- Parameter: Möglichkeit, weiter zu spezifizieren, was der API-Endpoint liefern soll.
 
 <!-- - JSON: **J**avaScript **O**bject **N**otation; Dateiformat für hierarchisch angeordnete, nicht (zwingend) rechteckige Daten. -->
 :::
 
-## Zum Nachlesen
+## Nachlesen
 
 ![[@haim_computational_2023, Kapitel 5.3]](https://media.springernature.com/full/springer-static/cover-hires/book/978-3-658-40171-9?as=webp)
 
@@ -358,7 +372,7 @@ library(tidyverse) # Datenmanipulation und Grafik
 
 ## Erkennen von Inzivilität in Social-Media-Kommentaren [@stoll_developing_2023]
 
-Kommentar mit min. einer der folgenden Eigenschaften gilt als inzivil:
+Kommentar mit mindestens einer der folgenden Eigenschaften gilt als inzivil:
 
 :::: {.columns}
 
@@ -389,8 +403,8 @@ Wir brauchen ein paar Kommentare zum Testen:
 
 - Zwei mehrdeutige Kommentare:
 
-    - Einen Kommentar, der wahrscheinlich fälschlicherweise als inzivil klassifiziert wird
-    - Einen Kommentar, der wahrscheinlich fälschlicherweise als **nicht** inzivil klassifiziert wird
+    - Einen *nicht* inzivilen Kommentar, der fälschlicherweise als inzivil klassifiziert wird
+    - Einen inzivilen Kommentar, der fälschlicherweise als *nicht* inzivil klassifiziert wird
 
 
 ## URL für Anfrage

@@ -14,6 +14,13 @@
     "text": "Dieses Bild habe ich mit einer API erstellt\n\nlibrary(httr)\nlibrary(jsonlite)\nkey = readLines(\"openai_key.txt\")\nurl &lt;- \"https://api.openai.com/v1/images/generations\"\nheaders &lt;- c(\n  \"Content-Type\" = \"application/json\",\n  \"Authorization\" = paste0(\"Bearer \", key)\n)\nbody &lt;- list(\n  model = \"dall-e-3\",\n  prompt = \"A team of communication researchers using digital research methods and computational methods, cyberpunk style\",\n  n = 1,\n  size = \"1024x1024\"\n)\nresponse &lt;- POST(url, body = toJSON(body, auto_unbox = TRUE), encode = \"json\", add_headers(.headers=headers))\ndownload.file(url = content(response)$data[[1]]$url, destfile = \"images/as_digimeth.png\")\n\nNachmachen: 👉 bsp_dall-e.R (mit OpenAI-Account, kostet $0.04/Bild)"
   },
   {
+    "objectID": "methoden1_ma.html#präsentation-und-code",
+    "href": "methoden1_ma.html#präsentation-und-code",
+    "title": "Kommunikationsforschung mit APIs:\nEine nicht technische Einführung",
+    "section": "Präsentation und Code",
+    "text": "Präsentation und Code\n\nPräsentation: https://bachl.github.io/methodenvl_ma/\nCode: https://github.com/bachl/methodenvl_ma"
+  },
+  {
     "objectID": "methoden1_ma.html#agenda",
     "href": "methoden1_ma.html#agenda",
     "title": "Kommunikationsforschung mit APIs:\nEine nicht technische Einführung",
@@ -39,21 +46,21 @@
     "href": "methoden1_ma.html#ein-einfaches-beispiel-1",
     "title": "Kommunikationsforschung mit APIs:\nEine nicht technische Einführung",
     "section": "Ein einfaches Beispiel",
-    "text": "Ein einfaches Beispiel\nAnfrage\n\nbb_quote &lt;- readLines(\"https://api.breakingbadquotes.xyz/v1/quotes\")\n\n\n\nAntwort\n\nbb_quote |&gt; jsonlite::prettify()\n\n[\n    {\n        \"quote\": \"Sometimes the forbidden fruit tastes the sweetest.\",\n        \"author\": \"Hank Schrader\"\n    }\n]"
+    "text": "Ein einfaches Beispiel\nAnfrage\n\nbb_quote &lt;- readLines(\"https://api.breakingbadquotes.xyz/v1/quotes\")\n\n\n\nAntwort\n\nbb_quote |&gt; jsonlite::prettify()\n\n[\n    {\n        \"quote\": \"My name is Skyler White yo. My husband is Walter White... yo.\",\n        \"author\": \"Skyler White\"\n    }\n]"
   },
   {
-    "objectID": "methoden1_ma.html#einige-grundbegriffe",
-    "href": "methoden1_ma.html#einige-grundbegriffe",
+    "objectID": "methoden1_ma.html#grundbegriffe",
+    "href": "methoden1_ma.html#grundbegriffe",
     "title": "Kommunikationsforschung mit APIs:\nEine nicht technische Einführung",
-    "section": "Einige Grundbegriffe",
-    "text": "Einige Grundbegriffe\n\n\nServer-Client-Prinzip: Server definiert Schnittstelle, Client kann diese abfragen\nREST API: Representational state transfer, Wortneuschöpfung; beschreibt abstrakt den Aufbau eines Datennetzwerks (z.B. des WWW); stateless, d.h., es passiert nur bei einer Anfrage etwas.\nStreaming API: Verbindung bleibt über einen Zeitraum bestehen, wenn auf dem Server etwas passiert, wird es an Client gesendet.\nEndpoint (Endpunkt): URL, mit der ein API-Aufruf beginnt; Die meisten APIs haben mehrere Endpoints, in die sie verschiedene Inhalte und Dienste sortieren.\nParameter: Möglichkeit, weiter zu spezifizieren, was der API-Endpunkt liefern soll."
+    "section": "Grundbegriffe",
+    "text": "Grundbegriffe\n\n\nServer-Client-Prinzip: Server definiert Schnittstelle, Client kann diese abfragen\nREST API: Representational state transfer, Wortneuschöpfung; beschreibt abstrakt den Aufbau eines Datennetzwerks (z.B. des WWW); stateless, d.h., es passiert nur bei einer Anfrage etwas.\nStreaming API: Verbindung bleibt über einen Zeitraum bestehen, wenn auf dem Server etwas passiert, wird es an Client gesendet.\nEndpoint: URL, mit der ein API-Aufruf beginnt; Die meisten APIs haben mehrere Endpoints, in die sie verschiedene Inhalte und Dienste sortieren.\nParameter: Möglichkeit, weiter zu spezifizieren, was der API-Endpoint liefern soll."
   },
   {
-    "objectID": "methoden1_ma.html#zum-nachlesen",
-    "href": "methoden1_ma.html#zum-nachlesen",
+    "objectID": "methoden1_ma.html#nachlesen",
+    "href": "methoden1_ma.html#nachlesen",
     "title": "Kommunikationsforschung mit APIs:\nEine nicht technische Einführung",
-    "section": "Zum Nachlesen",
-    "text": "Zum Nachlesen\n\n(Haim, 2023, Kapitel 5.3)"
+    "section": "Nachlesen",
+    "text": "Nachlesen\n\n(Haim, 2023, Kapitel 5.3)"
   },
   {
     "objectID": "methoden1_ma.html#bundestagswahlkampf-2017-auf-facebook",
@@ -193,14 +200,14 @@
     "href": "methoden1_ma.html#erkennen-von-inzivilität-in-social-media-kommentaren-stoll_developing_2023",
     "title": "Kommunikationsforschung mit APIs:\nEine nicht technische Einführung",
     "section": "Erkennen von Inzivilität in Social-Media-Kommentaren (Stoll et al., 2023)",
-    "text": "Erkennen von Inzivilität in Social-Media-Kommentaren (Stoll et al., 2023)\nKommentar mit min. einer der folgenden Eigenschaften gilt als inzivil:\n\n\n\nVulgäre, unangemessene Sprache, Fluchen\nBeleidigung, Profanität\nEntmenschlichung\nSarkasmus, Spott, Zynismus\nNegative Stereotype\n\n\n\nDiskriminierung\nAndrohung von Gewalt\nVerweigerung von Rechten\nVorwurf der Lüge\nErniedrigung, fehlender Respekt, Abwertung"
+    "text": "Erkennen von Inzivilität in Social-Media-Kommentaren (Stoll et al., 2023)\nKommentar mit mindestens einer der folgenden Eigenschaften gilt als inzivil:\n\n\n\nVulgäre, unangemessene Sprache, Fluchen\nBeleidigung, Profanität\nEntmenschlichung\nSarkasmus, Spott, Zynismus\nNegative Stereotype\n\n\n\nDiskriminierung\nAndrohung von Gewalt\nVerweigerung von Rechten\nVorwurf der Lüge\nErniedrigung, fehlender Respekt, Abwertung"
   },
   {
     "objectID": "methoden1_ma.html#untersuchungsmaterial",
     "href": "methoden1_ma.html#untersuchungsmaterial",
     "title": "Kommunikationsforschung mit APIs:\nEine nicht technische Einführung",
     "section": "Untersuchungsmaterial",
-    "text": "Untersuchungsmaterial\nWir brauchen ein paar Kommentare zum Testen:\n\nEinen klar inzivilen Kommentar\nEinen klar nicht inzivilen Kommentar\nZwei mehrdeutige Kommentare:\n\nEinen Kommentar, der wahrscheinlich fälschlicherweise als inzivil klassifiziert wird\nEinen Kommentar, der wahrscheinlich fälschlicherweise als nicht inzivil klassifiziert wird"
+    "text": "Untersuchungsmaterial\nWir brauchen ein paar Kommentare zum Testen:\n\nEinen klar inzivilen Kommentar\nEinen klar nicht inzivilen Kommentar\nZwei mehrdeutige Kommentare:\n\nEinen nicht inzivilen Kommentar, der fälschlicherweise als inzivil klassifiziert wird\nEinen inzivilen Kommentar, der fälschlicherweise als nicht inzivil klassifiziert wird"
   },
   {
     "objectID": "methoden1_ma.html#url-für-anfrage",
