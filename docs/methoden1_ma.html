@@ -521,8 +521,8 @@ Marko Bachl
 <div class="cell-output cell-output-stdout">
 <pre><code>[
     {
-        "quote": "So you do have a plan? Yeah, Mr. White! Yeah, science!",
-        "author": "Jesse Pinkman"
+        "quote": "Name one thing in this world that is non negotiable.",
+        "author": "Walter White"
     }
 ]
  </code></pre>
@@ -1014,11 +1014,10 @@ Answer with the number 0 or the number 1, followed by a semi-colon and then a br
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>cod <span class="ot">=</span> <span class="fu">readLines</span>(<span class="st">"comments.txt"</span>)</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(cod, <span class="at">sep =</span> <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Get back where you came from!!!!
-What a nice foto of you! Love it &lt;3
-You look better on fotos.
-Sure, let's all go out and kill babies.
-For a woman, you almost made sense here.</code></pre>
+<pre><code>Die Kartoffelbauern sollen daheim bleiben!
+Dein Hund sieht super süß aus.
+Dir sollte man bald mal einen Besuch abstatten.
+Du geile Sau!</code></pre>
 </div>
 </div>
 </section>
@@ -1045,9 +1044,9 @@ Accept: */*
 Accept-Encoding: deflate, gzip
 Authorization: &lt;REDACTED&gt;
 Content-Type: application/json
-Content-Length: 593
+Content-Length: 603
 
-{"model":"gpt-4","messages":[{"role":"system","content":"Your task is to evaluate whether a comment contains incivility.\n\nYou should assign the comment a numeric label, 1 or 0.\n1. The comment contains incivility.\n0. The comment does not contain incivility.\n\nAnswer with the number 0 or the number 1, followed by a semi-colon and then a brief motivation. For instance: \"1; The comment is clearly incivil. It has many elements of an incivil comment, such as ...\" Do not use quotation marks."},{"role":"user","content":"Get back where you came from!!!!"}],"temperature":0,"max_tokens":50}</code></pre>
+{"model":"gpt-4","messages":[{"role":"system","content":"Your task is to evaluate whether a comment contains incivility.\n\nYou should assign the comment a numeric label, 1 or 0.\n1. The comment contains incivility.\n0. The comment does not contain incivility.\n\nAnswer with the number 0 or the number 1, followed by a semi-colon and then a brief motivation. For instance: \"1; The comment is clearly incivil. It has many elements of an incivil comment, such as ...\" Do not use quotation marks."},{"role":"user","content":"Die Kartoffelbauern sollen daheim bleiben!"}],"temperature":0,"max_tokens":50}</code></pre>
 </div>
 </div>
 </section>
@@ -1074,25 +1073,25 @@ Content-Length: 593
 </div><div class="column">
 <div class="cell-output cell-output-stdout">
 <pre><code>{
-    "id": "chatcmpl-8giNlEym3eWA6oAZvrJ1dc3ip7hoD",
+    "id": "chatcmpl-8hEHHiJxEqh9oL19V1JBr6If2z70B",
     "object": "chat.completion",
-    "created": 1705191073,
+    "created": 1705313679,
     "model": "gpt-4-0613",
     "choices": [
         {
             "index": 0,
             "message": {
                 "role": "assistant",
-                "content": "1; The comment is incivil as it is disrespectful and offensive, suggesting the person should leave or is not welcome."
+                "content": "0; The comment does not contain incivility. It is a statement about potato farmers staying at home, which may be interpreted in different ways, but it does not contain explicit insults, threats, or offensive language."
             },
             "logprobs": null,
             "finish_reason": "stop"
         }
     ],
     "usage": {
-        "prompt_tokens": 122,
-        "completion_tokens": 24,
-        "total_tokens": 146
+        "prompt_tokens": 126,
+        "completion_tokens": 44,
+        "total_tokens": 170
     },
     "system_fingerprint": null
 }
@@ -1143,8 +1142,8 @@ Content-Length: 593
 <div class="cell-output-display">
 <table>
 <colgroup>
-<col style="width: 23%">
-<col style="width: 76%">
+<col style="width: 18%">
+<col style="width: 81%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -1154,24 +1153,20 @@ Content-Length: 593
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">Get back where you came from!!!!</td>
-<td style="text-align: left;">1; The comment is incivil as it is disrespectful and offensive, suggesting a hostile attitude towards the recipient.</td>
+<td style="text-align: left;">Die Kartoffelbauern sollen daheim bleiben!</td>
+<td style="text-align: left;">0; The comment does not contain incivility. It is a statement about potato farmers staying at home, which may be interpreted in different ways, but it does not contain explicit insults, threats, or offensive language.</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">What a nice foto of you! Love it &lt;3</td>
-<td style="text-align: left;">0; The comment is positive and complimentary, showing no signs of incivility.</td>
+<td style="text-align: left;">Dein Hund sieht super süß aus.</td>
+<td style="text-align: left;">0; The comment is civil and polite, complimenting the appearance of someone’s dog.</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">You look better on fotos.</td>
-<td style="text-align: left;">1; The comment is incivil as it implies that the person does not look good in person, which can be considered as a form of insult.</td>
+<td style="text-align: left;">Dir sollte man bald mal einen Besuch abstatten.</td>
+<td style="text-align: left;">1; The comment contains incivility. It implies a threat by suggesting a visit to the person, which can be interpreted as intimidating or menacing.</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Sure, let’s all go out and kill babies.</td>
-<td style="text-align: left;">1; The comment is incivil as it promotes violence and harm, which is inappropriate and offensive.</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">For a woman, you almost made sense here.</td>
-<td style="text-align: left;">1; The comment is incivil as it contains a sexist remark, implying that women generally do not make sense.</td>
+<td style="text-align: left;">Du geile Sau!</td>
+<td style="text-align: left;">1; The comment is incivil. It uses inappropriate and offensive language.</td>
 </tr>
 </tbody>
 </table>

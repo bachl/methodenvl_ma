@@ -51,3 +51,4 @@ openai_key.txt
 text_analysis_fundamentals.pptx
 
 /.quarto/
+.DS_Store
