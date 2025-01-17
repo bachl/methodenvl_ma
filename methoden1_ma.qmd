@@ -214,7 +214,7 @@ and all replies to the comments (n =
 
     - Eingeschränkter Zugang zu TikTok, Reddit, YouTube (aber kaum zu SN-Features)
 
-    - Zugang zu kleineren Plattformen, z.B. BlueSky, Mastodon
+    - Zugang zu kleineren Plattformen, z.B. BlueSky, Mastodon, Telegram
 
 - Problem: Willkür der Anbieter
 
@@ -317,6 +317,7 @@ resp |>
 
 - Alternative: Wikimedia REST API 👉 `bsp_wikipedia_rest.R`
 
+# Fragen?
 
 # Neuerer Einsatz in PuK: Nutzung von Cloud-Diensten (z.B. KI)
 

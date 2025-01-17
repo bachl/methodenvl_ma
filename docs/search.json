@@ -53,7 +53,7 @@
     "href": "methoden1_ma.html#ein-einfaches-beispiel-1",
     "title": "APIs für Datenerhebung und Inhaltsanalyse",
     "section": "Ein einfaches Beispiel",
-    "text": "Ein einfaches Beispiel\nAnfrage\n\nlibrary(httr2); library(jsonlite)\nbb_quote = request(base_url = \"https://api.breakingbadquotes.xyz/v1/quotes\") |&gt; req_perform()\n\n\n\nAntwort\n\nbb_quote |&gt; resp_body_string() |&gt; prettify()\n\n[\n    {\n        \"quote\": \"Hey, tell your douchebag brother-in-law to head towards the light.\",\n        \"author\": \"Jesse Pinkman\"\n    }\n]"
+    "text": "Ein einfaches Beispiel\nAnfrage\n\nlibrary(httr2); library(jsonlite)\nbb_quote = request(base_url = \"https://api.breakingbadquotes.xyz/v1/quotes\") |&gt; req_perform()\n\n\n\nAntwort\n\nbb_quote |&gt; resp_body_string() |&gt; prettify()\n\n[\n    {\n        \"quote\": \"We're all on the same page. The one that says, if I can't kill you, you'll sure as shit wish you were dead.\",\n        \"author\": \"Jesse Pinkman\"\n    }\n]"
   },
   {
     "objectID": "methoden1_ma.html#grundbegriffe",
@@ -102,7 +102,7 @@
     "href": "methoden1_ma.html#post-api-age-apicalypse-1",
     "title": "APIs für Datenerhebung und Inhaltsanalyse",
     "section": "Post-API-age & APIcalypse",
-    "text": "Post-API-age & APIcalypse\n\nAPIs der meisten großen Social-Media-Plattformen mehr oder weniger geschlossen\n\nKeine (praktikablen) Zugänge zu Facebook, Instagram, Twitter\nEingeschränkter Zugang zu TikTok, Reddit, YouTube (aber kaum zu SN-Features)\nZugang zu kleineren Plattformen, z.B. BlueSky, Mastodon\n\nProblem: Willkür der Anbieter\nHoffnung: EU Digital Services Act (DSA)"
+    "text": "Post-API-age & APIcalypse\n\nAPIs der meisten großen Social-Media-Plattformen mehr oder weniger geschlossen\n\nKeine (praktikablen) Zugänge zu Facebook, Instagram, Twitter\nEingeschränkter Zugang zu TikTok, Reddit, YouTube (aber kaum zu SN-Features)\nZugang zu kleineren Plattformen, z.B. BlueSky, Mastodon, Telegram\n\nProblem: Willkür der Anbieter\nHoffnung: EU Digital Services Act (DSA)"
   },
   {
     "objectID": "methoden1_ma.html#apis-are-alive-and-well",
