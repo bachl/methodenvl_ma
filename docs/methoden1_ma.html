@@ -8,10 +8,10 @@
 <link href="site_libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="site_libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.3.433">
+  <meta name="generator" content="quarto-1.5.54">
 
   <meta name="author" content="Marko Bachl">
-  <title>Vortrag Kommunikationsforschung mit APIs: Eine nicht technische Einführung - | Kommunikationsforschung mit APIs: | Eine nicht technische Einführung</title>
+  <title>Vortrag Kommunikationsforschung mit APIs: Eine ~~nicht~~ technische Einführung – quarto-inputad9cfc88298b54</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -31,7 +31,7 @@
     }
     /* CSS for syntax highlighting */
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span { line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -42,7 +42,7 @@
     }
     @media print {
     pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
     }
     pre.numberSource code
       { counter-reset: source-line 0; }
@@ -98,6 +98,7 @@
     div.csl-bib-body { }
     div.csl-entry {
       clear: both;
+      margin-bottom: 0em;
     }
     .hanging-indent div.csl-entry {
       margin-left:2em;
@@ -241,7 +242,8 @@
   }
 
   .callout.callout-titled .callout-body > .callout-content > :last-child {
-    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
+    margin-bottom: 0;
   }
 
   .callout.callout-titled .callout-icon::before {
@@ -409,10 +411,9 @@
   <div class="reveal">
     <div class="slides">
 
-<section id="title-slide" data-background-image="https://upload.wikimedia.org/wikipedia/de/7/71/Fub-logo.svg" data-background-position="top right" data-background-size="auto" class="quarto-title-block center">
-  <h1 class="title"><p>Kommunikationsforschung mit APIs:<br>
-Eine <del>nicht</del> technische Einführung</p></h1>
-  <p class="subtitle">Vorlesung: Methoden der empirischen Kommunikations- und Medienforschung I / Datenerhebung, Wintersemester 2023/2024</p>
+<section id="title-slide" data-background-image="https://bachl.quarto.pub/do-women-write-more-about-women/fu-logo-240903-RGB-s.svg" data-background-position="top right" data-background-size="auto 200px" class="quarto-title-block center">
+  <h1 class="title"><div class="line-block">APIs für Datenerhebung und Inhaltsanalyse</div></h1>
+  <p class="subtitle">Vorlesung: Methoden der empirischen Kommunikations- und Medienforschung I / Datenerhebung, Wintersemester 2024/2025</p>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
@@ -425,7 +426,7 @@ Marko Bachl
     </div>
 </div>
 
-  <p class="date">15. 01. 2024</p>
+  <p class="date">17. 01. 2025</p>
 </section>
 <section>
 <section id="hallo" class="title-slide slide level1 center">
@@ -439,30 +440,45 @@ Marko Bachl
 <section id="dieses-bild-habe-ich-mit-einer-api-erstellt" class="slide level2">
 <h2>Dieses Bild habe ich mit einer API erstellt</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(httr)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jsonlite)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>key <span class="ot">=</span> <span class="fu">readLines</span>(<span class="st">"openai_key.txt"</span>)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">"https://api.openai.com/v1/images/generations"</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>headers <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Content-Type"</span> <span class="ot">=</span> <span class="st">"application/json"</span>,</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Authorization"</span> <span class="ot">=</span> <span class="fu">paste0</span>(<span class="st">"Bearer "</span>, key)</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>body <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> <span class="st">"dall-e-3"</span>,</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">prompt =</span> <span class="st">"A team of communication researchers using digital research methods and computational methods, cyberpunk style"</span>,</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">n =</span> <span class="dv">1</span>,</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">size =</span> <span class="st">"1024x1024"</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>response <span class="ot">&lt;-</span> <span class="fu">POST</span>(url, <span class="at">body =</span> <span class="fu">toJSON</span>(body, <span class="at">auto_unbox =</span> <span class="cn">TRUE</span>), <span class="at">encode =</span> <span class="st">"json"</span>, <span class="fu">add_headers</span>(<span class="at">.headers=</span>headers))</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(<span class="at">url =</span> <span class="fu">content</span>(response)<span class="sc">$</span>data[[<span class="dv">1</span>]]<span class="sc">$</span>url, <span class="at">destfile =</span> <span class="st">"images/as_digimeth.png"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(httr2)</span>
+<span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jsonlite)</span>
+<span id="cb1-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a aria-hidden="true" tabindex="-1"></a>key <span class="ot">=</span> <span class="fu">readLines</span>(<span class="st">"openai_key.txt"</span>)</span>
+<span id="cb1-5"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a aria-hidden="true" tabindex="-1"></a>req <span class="ot">=</span> <span class="fu">request</span>(<span class="st">"https://api.openai.com/v1/images/generations"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-7"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_headers</span>(</span>
+<span id="cb1-8"><a aria-hidden="true" tabindex="-1"></a>    <span class="st">"Content-Type"</span> <span class="ot">=</span> <span class="st">"application/json"</span>,</span>
+<span id="cb1-9"><a aria-hidden="true" tabindex="-1"></a>    <span class="st">"Authorization"</span> <span class="ot">=</span> <span class="fu">paste0</span>(<span class="st">"Bearer "</span>, key)</span>
+<span id="cb1-10"><a aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb1-11"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_body_json</span>(<span class="fu">list</span>(</span>
+<span id="cb1-12"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">model =</span> <span class="st">"dall-e-3"</span>,</span>
+<span id="cb1-13"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">prompt =</span> <span class="st">"A team of communication researchers using digital research methods and computational methods, cyberpunk style"</span>,</span>
+<span id="cb1-14"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> <span class="dv">1</span>,</span>
+<span id="cb1-15"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">size =</span> <span class="st">"1024x1024"</span></span>
+<span id="cb1-16"><a aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">|&gt;</span></span>
+<span id="cb1-17"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_perform</span>()</span>
+<span id="cb1-18"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a aria-hidden="true" tabindex="-1"></a>image_url <span class="ot">=</span> <span class="fu">resp_body_json</span>(req)<span class="sc">$</span>data[[<span class="dv">1</span>]]<span class="sc">$</span>url</span>
+<span id="cb1-20"><a aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(<span class="at">url =</span> image_url, <span class="at">destfile =</span> <span class="st">"as_digimeth.png"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Nachmachen: 👉 <code>bsp_dall-e.R</code> (mit OpenAI-Account, kostet $0.04/Bild)</p>
+<p>Nachmachen: 👉 <code>bsp_dall-e.R</code> (mit OpenAI-Account, $0.04/Bild)</p>
 </section>
+<section id="arbeitsstelle-digitale-forschungsmethoden-1" class="slide level2">
+<h2>Arbeitsstelle Digitale Forschungsmethoden</h2>
+
+<img data-src="https://www.polsoz.fu-berlin.de/kommwiss/arbeitsstellen/digitale-methoden/C36EC0EA-05C8-49F8-B9D1-9A91E577CE26-Kopie.jpg" class="r-stretch quarto-figure-center"><p class="caption">Real life</p></section>
 <section id="präsentation-und-code" class="slide level2">
 <h2>Präsentation und Code</h2>
-
-<img data-src="methoden1_ma_files/figure-revealjs/unnamed-chunk-2-1.png" style="width:60.0%" class="r-stretch quarto-figure-left"><p>Präsentation: <a href="https://bachl.github.io/methodenvl_ma/" class="uri">https://bachl.github.io/methodenvl_ma/</a></p>
-<p>Code: <a href="https://github.com/bachl/methodenvl_ma" class="uri">https://github.com/bachl/methodenvl_ma</a></p>
+<div class="cell" data-layout-align="left">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-left">
+<figure>
+<p><a href="https://bachl.github.io/methodenvl_ma/"><img data-src="methoden1_ma_files/figure-revealjs/unnamed-chunk-2-1.png" class="quarto-figure quarto-figure-left" style="width:60.0%"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Material: <a href="https://bachl.github.io/methodenvl_ma/">Präsentation HTML</a>, <a href="https://github.com/bachl/methodenvl_ma/blob/main/methoden1_ma.pdf">Präsentation PDF</a>, <a href="https://github.com/bachl/methodenvl_ma">Code</a></p>
 </section>
 <section id="agenda" class="slide level2">
 <h2>Agenda</h2>
@@ -511,18 +527,19 @@ Marko Bachl
 <h2>Ein einfaches Beispiel</h2>
 <h3 id="anfrage">Anfrage</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>bb_quote <span class="ot">&lt;-</span> <span class="fu">readLines</span>(<span class="st">"https://api.breakingbadquotes.xyz/v1/quotes"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(httr2); <span class="fu">library</span>(jsonlite)</span>
+<span id="cb2-2"><a aria-hidden="true" tabindex="-1"></a>bb_quote <span class="ot">=</span> <span class="fu">request</span>(<span class="at">base_url =</span> <span class="st">"https://api.breakingbadquotes.xyz/v1/quotes"</span>) <span class="sc">|&gt;</span> <span class="fu">req_perform</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="fragment">
 <!-- -->
 <h3 id="antwort">Antwort</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>bb_quote <span class="sc">|&gt;</span> jsonlite<span class="sc">::</span><span class="fu">prettify</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a aria-hidden="true" tabindex="-1"></a>bb_quote <span class="sc">|&gt;</span> <span class="fu">resp_body_string</span>() <span class="sc">|&gt;</span> <span class="fu">prettify</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[
     {
-        "quote": "Name one thing in this world that is non negotiable.",
-        "author": "Walter White"
+        "quote": "Hey, tell your douchebag brother-in-law to head towards the light.",
+        "author": "Jesse Pinkman"
     }
 ]
  </code></pre>
@@ -557,30 +574,28 @@ Marko Bachl
 <h1>Vor der <em>APIcalypse</em>: Kommunikationsspuren auf Social Media</h1>
 
 </section>
-<section id="bundestagswahlkampf-2017-auf-facebook" class="slide level2">
-<h2>Bundestagswahlkampf 2017 auf Facebook</h2>
+<section id="alternative-media-sources-in-afd-centered-facebook-discussions" class="slide level2">
+<h2>(Alternative) media sources in AfD-centered Facebook discussions</h2>
+<blockquote>
+<p>The study is based on all posts, comments, and replies on core AfD Facebook pages during the year 2016, as they could be retrieved during the last week of the year. The Facebook Graph API (https://developers.facebook.com/docs/graphapi) was used for the main data collection.</p>
+</blockquote>
 
-<img data-src="images/clipboard-3907966241.png" class="r-stretch quarto-figure-center"><p class="caption">Datenstruktur des Projekts Multilevel Flows of Political Communication on Facebook (Bachl &amp; Scharkow, 2020-2023)</p><ul>
-<li><p>Facebook Graph API, zusätzlich YouTube Data API und Scraping</p></li>
-<li><p>Abfrage von ca. 400 politischen FB-Seiten alle 6 Stunden über ca. ein Jahr</p></li>
-</ul>
-<!-- ## Digitale Verhaltensspuren auf Individualebene -->
-<!-- ![[@winkler_individual_2022]](images/clipboard-1478384870.png) -->
-</section>
-<section id="digitale-verhaltensspuren-auf-individualebene" class="slide level2">
-<h2>Digitale Verhaltensspuren auf Individualebene</h2>
+<aside><div>
+<p><span class="citation" data-cites="bachl_alternative_2018">(<a href="#/literatur" role="doc-biblioref" onclick="">Bachl, 2018</a>)</span></p>
+</div></aside></section>
+<section id="alternative-media-sources-in-afd-centered-facebook-discussions-1" class="slide level2">
+<h2>(Alternative) media sources in AfD-centered Facebook discussions</h2>
+<blockquote>
+<p>the sample consisted of 122 pages, mostly of regional and local sections of the party, of its youth organization Junge Alternative, and of AfD politicians. All posts on these pages (n = 170,033), all comments to the posts (n = 1,455,200), and all replies to the comments (n = 960,077) were retrieved (overall n = 2,585,310).</p>
+</blockquote>
 
-<!-- ## Digitale Verhaltensspuren auf Individualebene -->
-<!-- ![[@winkler_individual_2022]](images/clipboard-685317092.png) -->
-<!-- ## Digitale Verhaltensspuren auf Individualebene -->
-<!-- ### Vorhersage inziviler Kommentare -->
-<!-- ![(Winkler, Scharkow, Bachl & Jürgens, working paper)](images/meta_offensive.png) -->
-<img data-src="images/clipboard-1996524043.png" class="r-stretch quarto-figure-center"><p class="caption"><span class="citation" data-cites="winkler_individual_2022">(<a href="#/literatur" role="doc-biblioref" onclick="">Winkler et al., 2022</a>)</span></p></section>
-<section id="digitale-verhaltensspuren-auf-individualebene-1" class="slide level2">
-<h2>Digitale Verhaltensspuren auf Individualebene</h2>
-<h3 id="vorhersage-des-ausstiegs-aus-der-diskussion">Vorhersage des Ausstiegs aus der Diskussion</h3>
+<aside><div>
+<p><span class="citation" data-cites="bachl_alternative_2018">(<a href="#/literatur" role="doc-biblioref" onclick="">Bachl, 2018</a>)</span></p>
+</div></aside></section>
+<section id="section" class="slide level2">
+<h2></h2>
 
-<img data-src="images/meta_islast.png" class="r-stretch quarto-figure-center"><p class="caption">(Winkler, Scharkow, Bachl &amp; Jürgens, working paper)</p></section>
+<img data-src="images/bachl2018.png" class="r-stretch quarto-figure-center"><p class="caption"><span class="citation" data-cites="bachl_alternative_2018">(<a href="#/literatur" role="doc-biblioref" onclick="">Bachl, 2018</a>)</span></p></section>
 <section id="post-api-age-apicalypse" class="slide level2">
 <h2>Post-API-age &amp; APIcalypse</h2>
 <div class="columns">
@@ -598,8 +613,7 @@ Marko Bachl
 <figcaption><span class="citation" data-cites="bruns_after_2019">(<a href="#/literatur" role="doc-biblioref" onclick="">Bruns, 2019</a>)</span></figcaption>
 </figure>
 </div>
-</div>
-</div>
+</div></div>
 </section>
 <section id="post-api-age-apicalypse-1" class="slide level2">
 <h2>Post-API-age &amp; APIcalypse</h2>
@@ -607,7 +621,7 @@ Marko Bachl
 <li><p>APIs der meisten großen Social-Media-Plattformen mehr oder weniger geschlossen</p>
 <ul>
 <li><p>Keine (praktikablen) Zugänge zu Facebook, Instagram, Twitter</p></li>
-<li><p>Eingeschränkter Zugang zu TikTok, YouTube (aber kaum zu SN-Features)</p></li>
+<li><p>Eingeschränkter Zugang zu TikTok, Reddit, YouTube (aber kaum zu SN-Features)</p></li>
 <li><p>Zugang zu kleineren Plattformen, z.B. BlueSky, Mastodon</p></li>
 </ul></li>
 <li><p>Problem: Willkür der Anbieter</p></li>
@@ -630,7 +644,7 @@ Marko Bachl
 <section id="umsetzung-mit-r-und-httr2-1" class="slide level2">
 <h2>Umsetzung mit <code>R</code> und <code>{httr2}</code></h2>
 <ul>
-<li>Beispiel: Aufmerksamkeit für Olaf Scholz, Robert Habeck und Christian Lindner in den letzten drei Wochen — gemessen an den Aufrufen ihrer Wikipedia-Seiten</li>
+<li>Beispiel: Aufmerksamkeit für Spitzenkandidat:innen in den letzten drei Wochen — gemessen an den Aufrufen ihrer Wikipedia-Seiten</li>
 </ul>
 <div class="fragment">
 <div class="columns">
@@ -646,41 +660,38 @@ Marko Bachl
 <figcaption><a href="https://httr2.r-lib.org/" class="uri">https://httr2.r-lib.org/</a></figcaption>
 </figure>
 </div>
-</div>
-</div>
+</div></div>
 </div>
 </section>
 <section id="genutzte-pakete" class="slide level2">
 <h2>Genutzte Pakete</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(httr2) <span class="co"># Kommunikation mit API über HTTP</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jsonlite) <span class="co"># JSON-Dateien</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse) <span class="co"># Datenmanipulation und Grafik</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(httr2) <span class="co"># Kommunikation mit API über HTTP</span></span>
+<span id="cb5-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jsonlite) <span class="co"># JSON-Dateien</span></span>
+<span id="cb5-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse) <span class="co"># Datenmanipulation und Grafik</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="anfrage-an-die-api" class="slide level2">
 <h2>Anfrage an die API</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>req <span class="ot">=</span> <span class="fu">request</span>(</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">base_url =</span> <span class="st">"https://de.wikipedia.org/w/api.php"</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span> </span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_url_query</span>(<span class="sc">!!!</span><span class="fu">list</span>(</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">action =</span> <span class="st">"query"</span>,</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">format =</span> <span class="st">"json"</span>,</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">prop =</span> <span class="st">"pageviews"</span>,</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">titles =</span> <span class="fu">c</span>(<span class="st">"Olaf_Scholz"</span>, </span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>               <span class="st">"Robert_Habeck"</span>, </span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>               <span class="st">"Christian_Lindner"</span>),</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">pvipdays =</span> <span class="dv">21</span>),</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">.multi =</span> <span class="st">"pipe"</span>)</span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>req <span class="sc">|&gt;</span> </span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_dry_run</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a aria-hidden="true" tabindex="-1"></a>req <span class="ot">=</span> <span class="fu">request</span>(<span class="at">base_url =</span> <span class="st">"https://de.wikipedia.org/w/api.php"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb6-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_url_query</span>(<span class="sc">!!!</span><span class="fu">list</span>(</span>
+<span id="cb6-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">action =</span> <span class="st">"query"</span>,</span>
+<span id="cb6-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">format =</span> <span class="st">"json"</span>,</span>
+<span id="cb6-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">prop =</span> <span class="st">"pageviews"</span>,</span>
+<span id="cb6-6"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">titles =</span> <span class="fu">c</span>(<span class="st">"Olaf_Scholz"</span>, <span class="st">"Robert_Habeck"</span>,</span>
+<span id="cb6-7"><a aria-hidden="true" tabindex="-1"></a>               <span class="st">"Christian_Lindner"</span>, <span class="st">"Alice_Weidel"</span>,</span>
+<span id="cb6-8"><a aria-hidden="true" tabindex="-1"></a>               <span class="st">"Sahra_Wagenknecht"</span>, <span class="st">"Friedrich_Merz"</span>),</span>
+<span id="cb6-9"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">pvipdays =</span> <span class="dv">21</span>),</span>
+<span id="cb6-10"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">.multi =</span> <span class="st">"pipe"</span>)</span>
+<span id="cb6-11"><a aria-hidden="true" tabindex="-1"></a>req <span class="sc">|&gt;</span> </span>
+<span id="cb6-12"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_dry_run</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell fragment">
 <div class="cell-output cell-output-stdout">
-<pre><code>GET /w/api.php?action=query&amp;format=json&amp;prop=pageviews&amp;titles=Olaf_Scholz|Robert_Habeck|Christian_Lindner&amp;pvipdays=21 HTTP/1.1
+<pre><code>GET /w/api.php?action=query&amp;format=json&amp;prop=pageviews&amp;titles=Olaf_Scholz|Robert_Habeck|Christian_Lindner|Alice_Weidel|Sahra_Wagenknecht|Friedrich_Merz&amp;pvipdays=21 HTTP/1.1
 Host: de.wikipedia.org
-User-Agent: httr2/1.0.0 r-curl/5.2.0 libcurl/8.1.2
+User-Agent: httr2/1.0.1 r-curl/5.2.1 libcurl/8.7.1
 Accept: */*
 Accept-Encoding: deflate, gzip</code></pre>
 </div>
@@ -690,12 +701,12 @@ Accept-Encoding: deflate, gzip</code></pre>
 <h2>Antwort der API</h2>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>resp <span class="ot">=</span> req<span class="sc">|&gt;</span> </span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_perform</span>()</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>resp <span class="sc">|&gt;</span> </span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">resp_body_string</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  jsonlite<span class="sc">::</span><span class="fu">prettify</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a aria-hidden="true" tabindex="-1"></a>resp <span class="ot">=</span> req<span class="sc">|&gt;</span> </span>
+<span id="cb8-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_perform</span>()</span>
+<span id="cb8-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a aria-hidden="true" tabindex="-1"></a>resp <span class="sc">|&gt;</span> </span>
+<span id="cb8-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">resp_body_string</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb8-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">prettify</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column fragment">
 <div class="cell-output cell-output-stdout">
 <pre><code>{
@@ -713,35 +724,103 @@ Accept-Encoding: deflate, gzip</code></pre>
             {
                 "from": "Christian_Lindner",
                 "to": "Christian Lindner"
+            },
+            {
+                "from": "Alice_Weidel",
+                "to": "Alice Weidel"
+            },
+            {
+                "from": "Sahra_Wagenknecht",
+                "to": "Sahra Wagenknecht"
+            },
+            {
+                "from": "Friedrich_Merz",
+                "to": "Friedrich Merz"
             }
         ],
         "pages": {
+            "9716234": {
+                "pageid": 9716234,
+                "ns": 0,
+                "title": "Alice Weidel",
+                "pageviews": {
+                    "2024-12-27": 11397,
+                    "2024-12-28": 17848,
+                    "2024-12-29": 20511,
+                    "2024-12-30": 17090,
+                    "2024-12-31": 13469,
+                    "2025-01-01": 13989,
+                    "2025-01-02": 13872,
+                    "2025-01-03": 17027,
+                    "2025-01-04": 14936,
+                    "2025-01-05": 16388,
+                    "2025-01-06": 16526,
+                    "2025-01-07": 16494,
+                    "2025-01-08": 18594,
+                    "2025-01-09": 42048,
+                    "2025-01-10": 60472,
+                    "2025-01-11": 87578,
+                    "2025-01-12": 110229,
+                    "2025-01-13": 73355,
+                    "2025-01-14": 47699,
+                    "2025-01-15": 36498,
+                    "2025-01-16": 39356
+                }
+            },
             "855225": {
                 "pageid": 855225,
                 "ns": 0,
                 "title": "Christian Lindner",
                 "pageviews": {
-                    "2023-12-25": 1384,
-                    "2023-12-26": 1470,
-                    "2023-12-27": 1627,
-                    "2023-12-28": 1405,
-                    "2023-12-29": 1219,
-                    "2023-12-30": 2735,
-                    "2023-12-31": 2239,
-                    "2024-01-01": 2193,
-                    "2024-01-02": 1758,
-                    "2024-01-03": 2020,
-                    "2024-01-04": 1597,
-                    "2024-01-05": 1925,
-                    "2024-01-06": 4738,
-                    "2024-01-07": 3769,
-                    "2024-01-08": 2967,
-                    "2024-01-09": 2251,
-                    "2024-01-10": 3807,
-                    "2024-01-11": 3208,
-                    "2024-01-12": 2217,
-                    "2024-01-13": 1988,
-                    "2024-01-14": 2402
+                    "2024-12-27": 2034,
+                    "2024-12-28": 2271,
+                    "2024-12-29": 2195,
+                    "2024-12-30": 1748,
+                    "2024-12-31": 1810,
+                    "2025-01-01": 1957,
+                    "2025-01-02": 1746,
+                    "2025-01-03": 1963,
+                    "2025-01-04": 3297,
+                    "2025-01-05": 3607,
+                    "2025-01-06": 7644,
+                    "2025-01-07": 3338,
+                    "2025-01-08": 3425,
+                    "2025-01-09": 5507,
+                    "2025-01-10": 3693,
+                    "2025-01-11": 2596,
+                    "2025-01-12": 2445,
+                    "2025-01-13": 2311,
+                    "2025-01-14": 2506,
+                    "2025-01-15": 2399,
+                    "2025-01-16": 3046
+                }
+            },
+            "9708": {
+                "pageid": 9708,
+                "ns": 0,
+                "title": "Friedrich Merz",
+                "pageviews": {
+                    "2024-12-27": 4215,
+                    "2024-12-28": 4657,
+                    "2024-12-29": 4514,
+                    "2024-12-30": 4268,
+                    "2024-12-31": 4062,
+                    "2025-01-01": 3726,
+                    "2025-01-02": 3612,
+                    "2025-01-03": 3615,
+                    "2025-01-04": 3699,
+                    "2025-01-05": 5205,
+                    "2025-01-06": 5573,
+                    "2025-01-07": 4537,
+                    "2025-01-08": 6975,
+                    "2025-01-09": 4976,
+                    "2025-01-10": 7641,
+                    "2025-01-11": 7375,
+                    "2025-01-12": 6926,
+                    "2025-01-13": 6752,
+                    "2025-01-14": 6001,
+                    "2025-01-15": 6593,
+                    "2025-01-16": 8711
                 }
             },
             "293388": {
@@ -749,27 +828,27 @@ Accept-Encoding: deflate, gzip</code></pre>
                 "ns": 0,
                 "title": "Olaf Scholz",
                 "pageviews": {
-                    "2023-12-25": 2834,
-                    "2023-12-26": 2593,
-                    "2023-12-27": 2902,
-                    "2023-12-28": 2369,
-                    "2023-12-29": 2522,
-                    "2023-12-30": 2724,
-                    "2023-12-31": 7523,
-                    "2024-01-01": 3596,
-                    "2024-01-02": 2782,
-                    "2024-01-03": 2553,
-                    "2024-01-04": 3805,
-                    "2024-01-05": 4057,
-                    "2024-01-06": 3874,
-                    "2024-01-07": 4349,
-                    "2024-01-08": 5224,
-                    "2024-01-09": 4428,
-                    "2024-01-10": 3938,
-                    "2024-01-11": 4656,
-                    "2024-01-12": 3874,
-                    "2024-01-13": 3471,
-                    "2024-01-14": 4259
+                    "2024-12-27": 3398,
+                    "2024-12-28": 3915,
+                    "2024-12-29": 2833,
+                    "2024-12-30": 2153,
+                    "2024-12-31": 4762,
+                    "2025-01-01": 2692,
+                    "2025-01-02": 2361,
+                    "2025-01-03": 3503,
+                    "2025-01-04": 3146,
+                    "2025-01-05": 3296,
+                    "2025-01-06": 3090,
+                    "2025-01-07": 2719,
+                    "2025-01-08": 2943,
+                    "2025-01-09": 2534,
+                    "2025-01-10": 3109,
+                    "2025-01-11": 4732,
+                    "2025-01-12": 3844,
+                    "2025-01-13": 3339,
+                    "2025-01-14": 3861,
+                    "2025-01-15": 3587,
+                    "2025-01-16": 3676
                 }
             },
             "1569620": {
@@ -777,27 +856,55 @@ Accept-Encoding: deflate, gzip</code></pre>
                 "ns": 0,
                 "title": "Robert Habeck",
                 "pageviews": {
-                    "2023-12-25": 3187,
-                    "2023-12-26": 3000,
-                    "2023-12-27": 2997,
-                    "2023-12-28": 2480,
-                    "2023-12-29": 2204,
-                    "2023-12-30": 2428,
-                    "2023-12-31": 3029,
-                    "2024-01-01": 2490,
-                    "2024-01-02": 2058,
-                    "2024-01-03": 2022,
-                    "2024-01-04": 4720,
-                    "2024-01-05": 23330,
-                    "2024-01-06": 12211,
-                    "2024-01-07": 8450,
-                    "2024-01-08": 11948,
-                    "2024-01-09": 7736,
-                    "2024-01-10": 7786,
-                    "2024-01-11": 5899,
-                    "2024-01-12": 5095,
-                    "2024-01-13": 4193,
-                    "2024-01-14": 4581
+                    "2024-12-27": 3648,
+                    "2024-12-28": 3890,
+                    "2024-12-29": 3677,
+                    "2024-12-30": 3072,
+                    "2024-12-31": 4205,
+                    "2025-01-01": 3433,
+                    "2025-01-02": 3100,
+                    "2025-01-03": 4271,
+                    "2025-01-04": 4496,
+                    "2025-01-05": 4120,
+                    "2025-01-06": 5848,
+                    "2025-01-07": 6287,
+                    "2025-01-08": 5201,
+                    "2025-01-09": 4609,
+                    "2025-01-10": 5698,
+                    "2025-01-11": 5982,
+                    "2025-01-12": 8497,
+                    "2025-01-13": 9391,
+                    "2025-01-14": 11746,
+                    "2025-01-15": 13408,
+                    "2025-01-16": 23620
+                }
+            },
+            "440646": {
+                "pageid": 440646,
+                "ns": 0,
+                "title": "Sahra Wagenknecht",
+                "pageviews": {
+                    "2024-12-27": 2999,
+                    "2024-12-28": 3771,
+                    "2024-12-29": 3190,
+                    "2024-12-30": 2497,
+                    "2024-12-31": 3207,
+                    "2025-01-01": 2443,
+                    "2025-01-02": 2094,
+                    "2025-01-03": 2348,
+                    "2025-01-04": 2709,
+                    "2025-01-05": 2727,
+                    "2025-01-06": 2585,
+                    "2025-01-07": 2523,
+                    "2025-01-08": 3143,
+                    "2025-01-09": 3003,
+                    "2025-01-10": 3227,
+                    "2025-01-11": 4829,
+                    "2025-01-12": 32359,
+                    "2025-01-13": 11705,
+                    "2025-01-14": 5997,
+                    "2025-01-15": 5566,
+                    "2025-01-16": 4475
                 }
             }
         }
@@ -805,28 +912,32 @@ Accept-Encoding: deflate, gzip</code></pre>
 }
  </code></pre>
 </div>
-</div>
-</div>
+</div></div>
 </section>
 <section id="antwort-konvertieren-und-plotten" class="slide level2">
 <h2>Antwort konvertieren und plotten</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>resp <span class="sc">|&gt;</span> </span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">resp_body_json</span>() <span class="sc">|&gt;</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  _<span class="sc">$</span>query <span class="sc">|&gt;</span> </span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  _<span class="sc">$</span>pages <span class="sc">|&gt;</span> </span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map_dfr</span>(as_tibble) <span class="sc">|&gt;</span> </span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">date =</span> <span class="fu">as_date</span>(<span class="fu">names</span>(pageviews))) <span class="sc">|&gt;</span> </span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(pageviews) <span class="sc">|&gt;</span> </span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(date, pageviews, <span class="at">color =</span> title)) <span class="sc">+</span> </span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span> </span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a aria-hidden="true" tabindex="-1"></a>resp <span class="sc">|&gt;</span> </span>
+<span id="cb10-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">resp_body_json</span>() <span class="sc">|&gt;</span></span>
+<span id="cb10-3"><a aria-hidden="true" tabindex="-1"></a>  _<span class="sc">$</span>query <span class="sc">|&gt;</span> </span>
+<span id="cb10-4"><a aria-hidden="true" tabindex="-1"></a>  _<span class="sc">$</span>pages <span class="sc">|&gt;</span> </span>
+<span id="cb10-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">map_dfr</span>(as_tibble) <span class="sc">|&gt;</span> </span>
+<span id="cb10-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">date =</span> <span class="fu">as_date</span>(<span class="fu">names</span>(pageviews))) <span class="sc">|&gt;</span> </span>
+<span id="cb10-7"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(pageviews) <span class="sc">|&gt;</span> </span>
+<span id="cb10-8"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(date, pageviews, <span class="at">color =</span> title)) <span class="sc">+</span> </span>
+<span id="cb10-9"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span> </span>
+<span id="cb10-10"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_log10</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_comma</span>()) <span class="sc">+</span></span>
+<span id="cb10-11"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 </section>
 <section id="antwort-konvertieren-und-plotten-output" class="slide level2 output-location-slide"><h2>Antwort konvertieren und plotten</h2><div class="cell output-location-slide">
 <div class="cell-output-display">
+<div>
+<figure>
 <p><img data-src="methoden1_ma_files/figure-revealjs/unnamed-chunk-8-1.png" width="1600"></p>
+</figure>
+</div>
 </div>
 </div></section><section id="umsetzung-mit-r-und-httr2-2" class="slide level2">
 <h2>Umsetzung mit <code>R</code> und <code>{httr2}</code></h2>
@@ -858,15 +969,15 @@ Accept-Encoding: deflate, gzip</code></pre>
 <section id="bag-of-words-machine-learning" class="slide level2">
 <h2>Bag-of-Words Machine Learning</h2>
 
-<img data-src="images/masur_classic_ml.png" class="r-stretch quarto-figure-center"><p class="caption">Abbildungen von <a href="https://philippmasur.de/">Philipp K. Masur</a></p></section>
+<img data-src="images/masur_classic_ml.png" class="r-stretch quarto-figure-center"><p class="caption">Abbildungen von <a href="https://philippmasur.de/">Philipp K. Masur</a>; Zur Entwicklung von Computational Text Analysis: <span class="citation" data-cites="bachl_computational_2024">Bachl &amp; Scharkow (<a href="#/literatur" role="doc-biblioref" onclick="">2024</a>)</span></p></section>
 <section id="transfer-learning" class="slide level2">
 <h2>Transfer Learning</h2>
 
-<img data-src="images/masur_transformer_ml.png" class="r-stretch quarto-figure-center"><p class="caption">Abbildungen von <a href="https://philippmasur.de/">Philipp K. Masur</a></p></section>
+<img data-src="images/masur_transformer_ml.png" class="r-stretch quarto-figure-center"><p class="caption">Abbildungen von <a href="https://philippmasur.de/">Philipp K. Masur</a>; Zur Entwicklung von Computational Text Analysis: <span class="citation" data-cites="bachl_computational_2024">Bachl &amp; Scharkow (<a href="#/literatur" role="doc-biblioref" onclick="">2024</a>)</span></p></section>
 <section id="zero-shot-classification" class="slide level2">
 <h2>Zero-shot classification</h2>
 
-<img data-src="images/masur_zeroshot.png" class="r-stretch quarto-figure-center"><p class="caption">Abbildungen von <a href="https://philippmasur.de/">Philipp K. Masur</a></p></section>
+<img data-src="images/masur_zeroshot.png" class="r-stretch quarto-figure-center"><p class="caption">Abbildungen von <a href="https://philippmasur.de/">Philipp K. Masur</a>; Zur Entwicklung von Computational Text Analysis: <span class="citation" data-cites="bachl_computational_2024">Bachl &amp; Scharkow (<a href="#/literatur" role="doc-biblioref" onclick="">2024</a>)</span></p></section>
 <section id="zero-shot-classification-hype" class="slide level2">
 <h2>Zero-shot classification: Hype (?)</h2>
 <div class="columns">
@@ -880,12 +991,11 @@ Accept-Encoding: deflate, gzip</code></pre>
 </div><div class="column" style="width:50%;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="images/rathje.png"></p>
-<figcaption><span class="citation" data-cites="rathje_gpt_2023">(<a href="#/literatur" role="doc-biblioref" onclick="">Rathje et al., 2023</a>)</span></figcaption>
+<p><img data-src="images/heseltine2024.png"></p>
+<figcaption><span class="citation" data-cites="heseltine_large_2024">(<a href="#/literatur" role="doc-biblioref" onclick="">Heseltine &amp; Clemm von Hohenberg, 2024</a>)</span></figcaption>
 </figure>
 </div>
-</div>
-</div>
+</div></div>
 </section></section>
 <section>
 <section id="zero-shot-classification-umsetzung-mit-der-openai-api" class="title-slide slide level1 center">
@@ -899,14 +1009,14 @@ Accept-Encoding: deflate, gzip</code></pre>
 </ul>
 <div class="fragment">
 <ul>
-<li><p>Klassifikation mit <a href="https://openai.com/gpt-4">OpenAI GPT-4</a> (bekannt aus ChatGPT Premium) und <code>httr2</code></p></li>
+<li><p>Klassifikation mit <a href="https://openai.com/gpt-4o">OpenAI GPT-4o</a> und <code>httr2</code></p></li>
 <li><p>Nachmachen: 👉 <code>bsp_zero_shot_openai.R</code> (mit OpenAI-Account)</p></li>
 </ul>
 <h3 id="genutzte-pakete-1">Genutzte Pakete</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(httr2) <span class="co"># Kommunikation mit API über HTTP</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jsonlite) <span class="co"># JSON-Dateien</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse) <span class="co"># Datenmanipulation und Grafik</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(httr2) <span class="co"># Kommunikation mit API über HTTP</span></span>
+<span id="cb11-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jsonlite) <span class="co"># JSON-Dateien</span></span>
+<span id="cb11-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse) <span class="co"># Datenmanipulation und Grafik</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </section>
@@ -930,8 +1040,7 @@ Accept-Encoding: deflate, gzip</code></pre>
 <li>Vorwurf der Lüge</li>
 <li>Erniedrigung, fehlender Respekt, Abwertung</li>
 </ul>
-</div>
-</div>
+</div></div>
 </section>
 <section id="untersuchungsmaterial" class="slide level2">
 <h2>Untersuchungsmaterial</h2>
@@ -949,13 +1058,13 @@ Accept-Encoding: deflate, gzip</code></pre>
 <section id="url-für-anfrage" class="slide level2">
 <h2>URL für Anfrage</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>req <span class="ot">=</span> <span class="fu">request</span>(<span class="at">base_url =</span> <span class="st">"https://api.openai.com/v1/chat/completions"</span>)</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>req <span class="sc">|&gt;</span> </span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_dry_run</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a aria-hidden="true" tabindex="-1"></a>req <span class="ot">=</span> <span class="fu">request</span>(<span class="at">base_url =</span> <span class="st">"https://api.openai.com/v1/chat/completions"</span>)</span>
+<span id="cb12-2"><a aria-hidden="true" tabindex="-1"></a>req <span class="sc">|&gt;</span> </span>
+<span id="cb12-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_dry_run</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>GET /v1/chat/completions HTTP/1.1
 Host: api.openai.com
-User-Agent: httr2/1.0.0 r-curl/5.2.0 libcurl/8.1.2
+User-Agent: httr2/1.0.1 r-curl/5.2.1 libcurl/8.7.1
 Accept: */*
 Accept-Encoding: deflate, gzip</code></pre>
 </div>
@@ -974,15 +1083,15 @@ Accept-Encoding: deflate, gzip</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>key <span class="ot">=</span> <span class="fu">readLines</span>(<span class="st">"openai_key.txt"</span>)</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>req <span class="sc">|&gt;</span> </span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_auth_bearer_token</span>(key) <span class="sc">|&gt;</span> </span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_dry_run</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a aria-hidden="true" tabindex="-1"></a>key <span class="ot">=</span> <span class="fu">readLines</span>(<span class="st">"openai_key.txt"</span>)</span>
+<span id="cb14-2"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a aria-hidden="true" tabindex="-1"></a>req <span class="sc">|&gt;</span> </span>
+<span id="cb14-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_auth_bearer_token</span>(key) <span class="sc">|&gt;</span> </span>
+<span id="cb14-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_dry_run</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>GET /v1/chat/completions HTTP/1.1
 Host: api.openai.com
-User-Agent: httr2/1.0.0 r-curl/5.2.0 libcurl/8.1.2
+User-Agent: httr2/1.0.1 r-curl/5.2.1 libcurl/8.7.1
 Accept: */*
 Accept-Encoding: deflate, gzip
 Authorization: &lt;REDACTED&gt;</code></pre>
@@ -993,26 +1102,112 @@ Authorization: &lt;REDACTED&gt;</code></pre>
 <h2>Prompt (1)</h2>
 <h3 id="codieranweisung-was-soll-ki-assistent-tun">Codieranweisung: Was soll KI-Assistent tun?</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>instr <span class="ot">=</span> <span class="fu">paste</span>(<span class="fu">readLines</span>(<span class="st">"instr_nodef_reason.txt"</span>), <span class="at">collapse =</span> <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(instr)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a aria-hidden="true" tabindex="-1"></a>instr <span class="ot">=</span> <span class="fu">paste</span>(<span class="fu">readLines</span>(<span class="st">"codieranweisung.txt"</span>), <span class="at">collapse =</span> <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb16-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(instr)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Your task is to evaluate whether a comment contains incivility.
+<pre><code>Your task is to assist in the classification of social media commments.
+You will receive a comment that was posted to a social media plattform.
+Your task is to classify the commment as either incivil or civil.
 
-You should assign the comment a numeric label, 1 or 0.
-1. The comment contains incivility.
-0. The comment does not contain incivility.
+Incivility is defined as a statement that contains any of the following features:
+Vulgarity, Inappropriate Language, Swearing, Insults, Name Calling, Profanity,
+Dehumanization, Sarcasm, Mockery, Cynicism, Negative Stereotypes, Discrimination,
+Threats of Violence, Denial of Rights, Accusations of Lying, Degradation,
+Disrespect, Devaluation.
 
-Answer with the number 0 or the number 1, followed by a semi-colon and then a brief motivation. For instance: "1; The comment is clearly incivil. It has many elements of an incivil comment, such as ..." Do not use quotation marks.</code></pre>
+Fill out the provided JSON response form.
+First, provide your reasoning to decide whether the search query is incivil or civil.
+Then give your classification.</code></pre>
 </div>
 </div>
-<p><span class="citation" data-cites="tornberg_how_2023">(<a href="#/literatur" role="doc-biblioref" onclick="">Törnberg, 2023</a>)</span></p>
+<p><span class="citation" data-cites="tornberg_best_2024">(<a href="#/literatur" role="doc-biblioref" onclick="">Törnberg, 2024</a>)</span></p>
 </section>
 <section id="prompt-2" class="slide level2">
 <h2>Prompt (2)</h2>
+<h3 id="kategoriensystem-wie-soll-die-antwort-aussehen">Kategoriensystem: Wie soll die Antwort aussehen?</h3>
+<div class="cell columns column-output-location">
+<div class="column">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a aria-hidden="true" tabindex="-1"></a>response_format <span class="ot">=</span> <span class="fu">list</span>(</span>
+<span id="cb18-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"json_schema"</span>,</span>
+<span id="cb18-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">json_schema =</span> <span class="fu">list</span>(</span>
+<span id="cb18-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">"social_media_incivility"</span>,</span>
+<span id="cb18-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">schema =</span> <span class="fu">list</span>(</span>
+<span id="cb18-6"><a aria-hidden="true" tabindex="-1"></a>      <span class="at">type =</span> <span class="st">"object"</span>,</span>
+<span id="cb18-7"><a aria-hidden="true" tabindex="-1"></a>      <span class="at">properties =</span> <span class="fu">list</span>(</span>
+<span id="cb18-8"><a aria-hidden="true" tabindex="-1"></a>        <span class="at">reasoning =</span> <span class="fu">list</span>(</span>
+<span id="cb18-9"><a aria-hidden="true" tabindex="-1"></a>          <span class="at">description =</span> <span class="st">"Short text to explain your reasoning"</span>,</span>
+<span id="cb18-10"><a aria-hidden="true" tabindex="-1"></a>          <span class="at">type =</span> <span class="st">"string"</span></span>
+<span id="cb18-11"><a aria-hidden="true" tabindex="-1"></a>        ),</span>
+<span id="cb18-12"><a aria-hidden="true" tabindex="-1"></a>        <span class="at">classification =</span> <span class="fu">list</span>(</span>
+<span id="cb18-13"><a aria-hidden="true" tabindex="-1"></a>          <span class="at">description =</span> <span class="st">"Classification into incivil or civil"</span>,</span>
+<span id="cb18-14"><a aria-hidden="true" tabindex="-1"></a>          <span class="at">type =</span> <span class="st">"string"</span>,</span>
+<span id="cb18-15"><a aria-hidden="true" tabindex="-1"></a>          <span class="at">enum =</span> <span class="fu">c</span>(<span class="st">"incivil"</span>, <span class="st">"civil"</span>)</span>
+<span id="cb18-16"><a aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb18-17"><a aria-hidden="true" tabindex="-1"></a>      ),</span>
+<span id="cb18-18"><a aria-hidden="true" tabindex="-1"></a>      <span class="at">additionalProperties =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb18-19"><a aria-hidden="true" tabindex="-1"></a>      <span class="at">required =</span> <span class="fu">c</span>(<span class="st">"reasoning"</span>, <span class="st">"classification"</span>)</span>
+<span id="cb18-20"><a aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb18-21"><a aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb18-22"><a aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb18-23"><a aria-hidden="true" tabindex="-1"></a>response_format <span class="sc">|&gt;</span> </span>
+<span id="cb18-24"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">toJSON</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb18-25"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">prettify</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div><div class="column">
+<div class="cell-output cell-output-stdout">
+<pre><code>{
+    "type": [
+        "json_schema"
+    ],
+    "json_schema": {
+        "name": [
+            "social_media_incivility"
+        ],
+        "schema": {
+            "type": [
+                "object"
+            ],
+            "properties": {
+                "reasoning": {
+                    "description": [
+                        "Short text to explain your reasoning"
+                    ],
+                    "type": [
+                        "string"
+                    ]
+                },
+                "classification": {
+                    "description": [
+                        "Classification into incivil or civil"
+                    ],
+                    "type": [
+                        "string"
+                    ],
+                    "enum": [
+                        "incivil",
+                        "civil"
+                    ]
+                }
+            },
+            "additionalProperties": [
+                false
+            ],
+            "required": [
+                "reasoning",
+                "classification"
+            ]
+        }
+    }
+}
+ </code></pre>
+</div>
+</div></div>
+</section>
+<section id="prompt-3" class="slide level2">
+<h2>Prompt (3)</h2>
 <h3 id="codiereinheiten-was-soll-klassifiziert-werden">Codiereinheiten: Was soll klassifiziert werden?</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>cod <span class="ot">=</span> <span class="fu">readLines</span>(<span class="st">"comments.txt"</span>)</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(cod, <span class="at">sep =</span> <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a aria-hidden="true" tabindex="-1"></a>cod <span class="ot">=</span> <span class="fu">readLines</span>(<span class="st">"comments.txt"</span>)</span>
+<span id="cb20-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(cod, <span class="at">sep =</span> <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Die Kartoffelbauern sollen daheim bleiben!
 Dein Hund sieht super süß aus.
@@ -1024,149 +1219,172 @@ Du geile Sau!</code></pre>
 <section id="anfrage-1" class="slide level2">
 <h2>Anfrage</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>req <span class="sc">|&gt;</span> </span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_auth_bearer_token</span>(key) <span class="sc">|&gt;</span> </span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_body_json</span>(<span class="fu">list</span>(</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">model =</span> <span class="st">"gpt-4"</span>,</span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">messages =</span> <span class="fu">list</span>(</span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>      <span class="fu">list</span>(<span class="at">role =</span> <span class="st">"system"</span>, <span class="at">content =</span> instr),</span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>      <span class="fu">list</span>(<span class="at">role =</span> <span class="st">"user"</span>, <span class="at">content =</span> cod[<span class="dv">1</span>])</span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">temperature =</span> <span class="dv">0</span>,</span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">max_tokens =</span> <span class="dv">50</span></span>
-<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">|&gt;</span> </span>
-<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_dry_run</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a aria-hidden="true" tabindex="-1"></a>req <span class="sc">|&gt;</span> </span>
+<span id="cb22-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_auth_bearer_token</span>(key) <span class="sc">|&gt;</span> </span>
+<span id="cb22-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_body_json</span>(<span class="fu">list</span>(</span>
+<span id="cb22-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">model =</span> <span class="st">"gpt-4o"</span>,</span>
+<span id="cb22-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">messages =</span> <span class="fu">list</span>(</span>
+<span id="cb22-6"><a aria-hidden="true" tabindex="-1"></a>      <span class="fu">list</span>(<span class="at">role =</span> <span class="st">"system"</span>, <span class="at">content =</span> instr),</span>
+<span id="cb22-7"><a aria-hidden="true" tabindex="-1"></a>      <span class="fu">list</span>(<span class="at">role =</span> <span class="st">"user"</span>, <span class="at">content =</span> cod[<span class="dv">1</span>])</span>
+<span id="cb22-8"><a aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb22-9"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">response_format =</span> response_format,</span>
+<span id="cb22-10"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">temperature =</span> <span class="dv">0</span>,</span>
+<span id="cb22-11"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">max_completion_tokens =</span> <span class="dv">500</span></span>
+<span id="cb22-12"><a aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">|&gt;</span> </span>
+<span id="cb22-13"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_dry_run</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>POST /v1/chat/completions HTTP/1.1
 Host: api.openai.com
-User-Agent: httr2/1.0.0 r-curl/5.2.0 libcurl/8.1.2
+User-Agent: httr2/1.0.1 r-curl/5.2.1 libcurl/8.7.1
 Accept: */*
 Accept-Encoding: deflate, gzip
 Authorization: &lt;REDACTED&gt;
 Content-Type: application/json
-Content-Length: 603
+Content-Length: 1302
 
-{"model":"gpt-4","messages":[{"role":"system","content":"Your task is to evaluate whether a comment contains incivility.\n\nYou should assign the comment a numeric label, 1 or 0.\n1. The comment contains incivility.\n0. The comment does not contain incivility.\n\nAnswer with the number 0 or the number 1, followed by a semi-colon and then a brief motivation. For instance: \"1; The comment is clearly incivil. It has many elements of an incivil comment, such as ...\" Do not use quotation marks."},{"role":"user","content":"Die Kartoffelbauern sollen daheim bleiben!"}],"temperature":0,"max_tokens":50}</code></pre>
+{"model":"gpt-4o","messages":[{"role":"system","content":"Your task is to assist in the classification of social media commments.\nYou will receive a comment that was posted to a social media plattform.\nYour task is to classify the commment as either incivil or civil.\n\nIncivility is defined as a statement that contains any of the following features:\nVulgarity, Inappropriate Language, Swearing, Insults, Name Calling, Profanity,\nDehumanization, Sarcasm, Mockery, Cynicism, Negative Stereotypes, Discrimination,\nThreats of Violence, Denial of Rights, Accusations of Lying, Degradation,\nDisrespect, Devaluation.\n\nFill out the provided JSON response form.\nFirst, provide your reasoning to decide whether the search query is incivil or civil.\nThen give your classification."},{"role":"user","content":"Die Kartoffelbauern sollen daheim bleiben!"}],"response_format":{"type":"json_schema","json_schema":{"name":"social_media_incivility","schema":{"type":"object","properties":{"reasoning":{"description":"Short text to explain your reasoning","type":"string"},"classification":{"description":"Classification into incivil or civil","type":"string","enum":["incivil","civil"]}},"additionalProperties":false,"required":["reasoning","classification"]}}},"temperature":0,"max_completion_tokens":500}</code></pre>
 </div>
 </div>
 </section>
 <section id="antwort-1" class="slide level2">
 <h2>Antwort</h2>
-<div class="cell columns column-output-location" data-hash="methoden1_ma_cache/revealjs/gpt4call_e542beccc87569add07931287e07d326">
+<div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>resp <span class="ot">=</span> req <span class="sc">|&gt;</span> </span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_auth_bearer_token</span>(key) <span class="sc">|&gt;</span> </span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_body_json</span>(<span class="fu">list</span>(</span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">model =</span> <span class="st">"gpt-4"</span>,</span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">messages =</span> <span class="fu">list</span>(</span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>      <span class="fu">list</span>(<span class="at">role =</span> <span class="st">"system"</span>, <span class="at">content =</span> instr),</span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>      <span class="fu">list</span>(<span class="at">role =</span> <span class="st">"user"</span>, <span class="at">content =</span> cod[<span class="dv">1</span>])</span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">temperature =</span> <span class="dv">0</span>,</span>
-<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">max_tokens =</span> <span class="dv">50</span></span>
-<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">|&gt;</span> </span>
-<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_perform</span>()</span>
-<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>resp <span class="sc">|&gt;</span> </span>
-<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">resp_body_string</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prettify</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a aria-hidden="true" tabindex="-1"></a>resp <span class="ot">=</span> req <span class="sc">|&gt;</span> </span>
+<span id="cb24-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_auth_bearer_token</span>(key) <span class="sc">|&gt;</span> </span>
+<span id="cb24-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_body_json</span>(<span class="fu">list</span>(</span>
+<span id="cb24-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">model =</span> <span class="st">"gpt-4o"</span>,</span>
+<span id="cb24-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">messages =</span> <span class="fu">list</span>(</span>
+<span id="cb24-6"><a aria-hidden="true" tabindex="-1"></a>      <span class="fu">list</span>(<span class="at">role =</span> <span class="st">"system"</span>, <span class="at">content =</span> instr),</span>
+<span id="cb24-7"><a aria-hidden="true" tabindex="-1"></a>      <span class="fu">list</span>(<span class="at">role =</span> <span class="st">"user"</span>, <span class="at">content =</span> cod[<span class="dv">1</span>])</span>
+<span id="cb24-8"><a aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb24-9"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">response_format =</span> response_format,</span>
+<span id="cb24-10"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">temperature =</span> <span class="dv">0</span>,</span>
+<span id="cb24-11"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">max_completion_tokens =</span> <span class="dv">500</span></span>
+<span id="cb24-12"><a aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">|&gt;</span> </span>
+<span id="cb24-13"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_perform</span>()</span>
+<span id="cb24-14"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-15"><a aria-hidden="true" tabindex="-1"></a>resp <span class="sc">|&gt;</span> </span>
+<span id="cb24-16"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">resp_body_string</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb24-17"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">prettify</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 <div class="cell-output cell-output-stdout">
 <pre><code>{
-    "id": "chatcmpl-8hEHHiJxEqh9oL19V1JBr6If2z70B",
+    "id": "chatcmpl-AqeOlUwjYoJLi6Om3rrWq2kD6EIpB",
     "object": "chat.completion",
-    "created": 1705313679,
-    "model": "gpt-4-0613",
+    "created": 1737111711,
+    "model": "gpt-4o-2024-08-06",
     "choices": [
         {
             "index": 0,
             "message": {
                 "role": "assistant",
-                "content": "0; The comment does not contain incivility. It is a statement about potato farmers staying at home, which may be interpreted in different ways, but it does not contain explicit insults, threats, or offensive language."
+                "content": "{\"reasoning\":\"The comment suggests that a group of people, in this case, 'potato farmers', should stay at home. This could be interpreted as a form of discrimination or devaluation, as it implies that this group is not welcome or should not participate in certain activities. Such statements can be seen as disrespectful or degrading towards the group mentioned.\",\"classification\":\"incivil\"}",
+                "refusal": null
             },
             "logprobs": null,
             "finish_reason": "stop"
         }
     ],
     "usage": {
-        "prompt_tokens": 126,
-        "completion_tokens": 44,
-        "total_tokens": 170
+        "prompt_tokens": 246,
+        "completion_tokens": 78,
+        "total_tokens": 324,
+        "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "audio_tokens": 0
+        },
+        "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "audio_tokens": 0,
+            "accepted_prediction_tokens": 0,
+            "rejected_prediction_tokens": 0
+        }
     },
-    "system_fingerprint": null
+    "service_tier": "default",
+    "system_fingerprint": "fp_4691090a87"
 }
  </code></pre>
 </div>
-</div>
-</div>
+</div></div>
 </section>
 <section id="alle-kommentare" class="slide level2 scrollable">
 <h2>Alle Kommentare</h2>
-<div class="cell" data-hash="methoden1_ma_cache/revealjs/gpt4call2_c6c80e9a0b5059452601ab796977b4c3">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>req_list <span class="ot">=</span> cod <span class="sc">|&gt;</span> </span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map</span>(<span class="sc">~</span> {</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    req <span class="sc">|&gt;</span> </span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">req_auth_bearer_token</span>(key) <span class="sc">|&gt;</span> </span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>      <span class="fu">req_body_json</span>(<span class="fu">list</span>(</span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">model =</span> <span class="st">"gpt-4"</span>,</span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">messages =</span> <span class="fu">list</span>(</span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>          <span class="fu">list</span>(<span class="at">role =</span> <span class="st">"system"</span>, <span class="at">content =</span> instr),</span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>          <span class="fu">list</span>(<span class="at">role =</span> <span class="st">"user"</span>, <span class="at">content =</span> .x)</span>
-<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>        ),</span>
-<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">temperature =</span> <span class="dv">0</span>,</span>
-<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>        <span class="at">max_tokens =</span> <span class="dv">50</span></span>
-<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>      ))</span>
-<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>  })</span>
-<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Antworten für alle Kommentare ####</span></span>
-<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>resp_list <span class="ot">=</span> req_list <span class="sc">|&gt;</span> </span>
-<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_perform_parallel</span>()</span>
-<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Extrahieren und aufbereiten ####</span></span>
-<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
-<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">Kommentar =</span> cod,</span>
-<span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">Klassifikation =</span> resp_list <span class="sc">|&gt;</span> </span>
-<span id="cb24-24"><a href="#cb24-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">map_chr</span>( <span class="sc">~</span> {</span>
-<span id="cb24-25"><a href="#cb24-25" aria-hidden="true" tabindex="-1"></a>      .x <span class="sc">|&gt;</span> </span>
-<span id="cb24-26"><a href="#cb24-26" aria-hidden="true" tabindex="-1"></a>        <span class="fu">resp_body_json</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb24-27"><a href="#cb24-27" aria-hidden="true" tabindex="-1"></a>        _<span class="sc">$</span>choices <span class="sc">|&gt;</span> </span>
-<span id="cb24-28"><a href="#cb24-28" aria-hidden="true" tabindex="-1"></a>        _[[<span class="dv">1</span>]] <span class="sc">|&gt;</span> </span>
-<span id="cb24-29"><a href="#cb24-29" aria-hidden="true" tabindex="-1"></a>        _<span class="sc">$</span>message <span class="sc">|&gt;</span> </span>
-<span id="cb24-30"><a href="#cb24-30" aria-hidden="true" tabindex="-1"></a>        _<span class="sc">$</span>content</span>
-<span id="cb24-31"><a href="#cb24-31" aria-hidden="true" tabindex="-1"></a>    })</span>
-<span id="cb24-32"><a href="#cb24-32" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span> </span>
-<span id="cb24-33"><a href="#cb24-33" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Anfragen für alle Kommentare ####</span></span>
+<span id="cb26-2"><a aria-hidden="true" tabindex="-1"></a>req_list <span class="ot">=</span> cod <span class="sc">|&gt;</span> </span>
+<span id="cb26-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">map</span>(<span class="sc">~</span> {</span>
+<span id="cb26-4"><a aria-hidden="true" tabindex="-1"></a>    req <span class="sc">|&gt;</span> </span>
+<span id="cb26-5"><a aria-hidden="true" tabindex="-1"></a>      <span class="fu">req_auth_bearer_token</span>(key) <span class="sc">|&gt;</span> </span>
+<span id="cb26-6"><a aria-hidden="true" tabindex="-1"></a>      <span class="fu">req_body_json</span>(<span class="fu">list</span>(</span>
+<span id="cb26-7"><a aria-hidden="true" tabindex="-1"></a>        <span class="at">model =</span> <span class="st">"gpt-4o"</span>,</span>
+<span id="cb26-8"><a aria-hidden="true" tabindex="-1"></a>        <span class="at">messages =</span> <span class="fu">list</span>(</span>
+<span id="cb26-9"><a aria-hidden="true" tabindex="-1"></a>          <span class="fu">list</span>(<span class="at">role =</span> <span class="st">"system"</span>, <span class="at">content =</span> instr),</span>
+<span id="cb26-10"><a aria-hidden="true" tabindex="-1"></a>          <span class="fu">list</span>(<span class="at">role =</span> <span class="st">"user"</span>, <span class="at">content =</span> .x)</span>
+<span id="cb26-11"><a aria-hidden="true" tabindex="-1"></a>        ),</span>
+<span id="cb26-12"><a aria-hidden="true" tabindex="-1"></a>        <span class="at">response_format =</span> response_format,</span>
+<span id="cb26-13"><a aria-hidden="true" tabindex="-1"></a>        <span class="at">temperature =</span> <span class="dv">0</span>,</span>
+<span id="cb26-14"><a aria-hidden="true" tabindex="-1"></a>        <span class="at">max_completion_tokens =</span> <span class="dv">500</span></span>
+<span id="cb26-15"><a aria-hidden="true" tabindex="-1"></a>      )) </span>
+<span id="cb26-16"><a aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb26-17"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-18"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Antworten für alle Kommentare ####</span></span>
+<span id="cb26-19"><a aria-hidden="true" tabindex="-1"></a>resp_list <span class="ot">=</span> req_list <span class="sc">|&gt;</span> </span>
+<span id="cb26-20"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_perform_parallel</span>()</span>
+<span id="cb26-21"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-22"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Extrahieren und aufbereiten ####</span></span>
+<span id="cb26-23"><a aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">Kommentar =</span> cod) <span class="sc">|&gt;</span> </span>
+<span id="cb26-24"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_cols</span>(</span>
+<span id="cb26-25"><a aria-hidden="true" tabindex="-1"></a>    resp_list <span class="sc">|&gt;</span> </span>
+<span id="cb26-26"><a aria-hidden="true" tabindex="-1"></a>      <span class="fu">map_dfr</span>( <span class="sc">~</span> {</span>
+<span id="cb26-27"><a aria-hidden="true" tabindex="-1"></a>        .x <span class="sc">|&gt;</span> </span>
+<span id="cb26-28"><a aria-hidden="true" tabindex="-1"></a>          <span class="fu">resp_body_json</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb26-29"><a aria-hidden="true" tabindex="-1"></a>          _<span class="sc">$</span>choices <span class="sc">|&gt;</span> </span>
+<span id="cb26-30"><a aria-hidden="true" tabindex="-1"></a>          _[[<span class="dv">1</span>]] <span class="sc">|&gt;</span> </span>
+<span id="cb26-31"><a aria-hidden="true" tabindex="-1"></a>          _<span class="sc">$</span>message <span class="sc">|&gt;</span> </span>
+<span id="cb26-32"><a aria-hidden="true" tabindex="-1"></a>          _<span class="sc">$</span>content <span class="sc">|&gt;</span> </span>
+<span id="cb26-33"><a aria-hidden="true" tabindex="-1"></a>          <span class="fu">fromJSON</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb26-34"><a aria-hidden="true" tabindex="-1"></a>          <span class="fu">as_tibble</span>()</span>
+<span id="cb26-35"><a aria-hidden="true" tabindex="-1"></a>      })</span>
+<span id="cb26-36"><a aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb26-37"><a aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<table>
+<table class="caption-top">
 <colgroup>
-<col style="width: 18%">
-<col style="width: 81%">
+<col style="width: 10%">
+<col style="width: 86%">
+<col style="width: 3%">
 </colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Kommentar</th>
-<th style="text-align: left;">Klassifikation</th>
+<th style="text-align: left;">reasoning</th>
+<th style="text-align: left;">classification</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">Die Kartoffelbauern sollen daheim bleiben!</td>
-<td style="text-align: left;">0; The comment does not contain incivility. It is a statement about potato farmers staying at home, which may be interpreted in different ways, but it does not contain explicit insults, threats, or offensive language.</td>
+<td style="text-align: left;">The comment suggests that a specific group, ‘Kartoffelbauern’ (potato farmers), should stay at home. This could be interpreted as a form of discrimination or devaluation of a particular group, which falls under incivility.</td>
+<td style="text-align: left;">incivil</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Dein Hund sieht super süß aus.</td>
-<td style="text-align: left;">0; The comment is civil and polite, complimenting the appearance of someone’s dog.</td>
+<td style="text-align: left;">The comment is a compliment about someone’s dog, using positive language without any negative or inappropriate elements.</td>
+<td style="text-align: left;">civil</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Dir sollte man bald mal einen Besuch abstatten.</td>
-<td style="text-align: left;">1; The comment contains incivility. It implies a threat by suggesting a visit to the person, which can be interpreted as intimidating or menacing.</td>
+<td style="text-align: left;">The comment suggests a visit to the person, which can be interpreted as a threat of violence or intimidation, depending on the context. This makes it incivil.</td>
+<td style="text-align: left;">incivil</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Du geile Sau!</td>
-<td style="text-align: left;">1; The comment is incivil. It uses inappropriate and offensive language.</td>
+<td style="text-align: left;">The phrase ‘Du geile Sau!’ translates to ‘You sexy pig!’ in English. While it may be intended as a compliment in some contexts, it uses language that can be considered vulgar or inappropriate, especially if the recipient does not welcome such remarks. The use of ‘Sau’ (pig) can be seen as dehumanizing or disrespectful, depending on the context and relationship between the individuals involved.</td>
+<td style="text-align: left;">incivil</td>
 </tr>
 </tbody>
 </table>
@@ -1181,10 +1399,10 @@ Content-Length: 603
 <ul>
 <li>Verbesserungen durch weiterentwickelte Modelle</li>
 <li>Evaluation der Performance: Was geht, was (noch) nicht?</li>
-<li>Prompt engneering: Welche Codieranweisungen sind besser?</li>
+<li>Prompt engineering: Welche Codieranweisungen sind besser?</li>
 <li>Forschungethische Fragen: Biases, Reproduzierbarkeit, Abgängigkeit von proprietären Modellen</li>
 </ul></li>
-<li><p>Wenn Sie sich für Inhaltsanalyse interessieren: Jetzt einsteigen!</p></li>
+<li><p>Selbst ausprobieren - es ist nicht so schwer, wie es am Anfang aussieht.</p></li>
 </ul>
 </section></section>
 <section id="fragen" class="title-slide slide level1 center">
@@ -1201,10 +1419,18 @@ Content-Length: 603
 <section id="literatur" class="slide level2 smaller scrollable">
 <h2>Literatur</h2>
 
+<div class="quarto-auto-generated-content">
 <div class="footer footer-default">
 
 </div>
-<div id="refs" class="references csl-bib-body hanging-indent" data-line-spacing="2" role="list">
+</div>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
+<div id="ref-bachl_alternative_2018" class="csl-entry" role="listitem">
+Bachl, M. (2018). (<span>Alternative</span>) media sources in <span>AfD</span>-centered <span>Facebook</span> discussions. <em>Studies in Communication and Media</em>, <em>7</em>(2), 128–142. <a href="https://doi.org/ghhx99">https://doi.org/ghhx99</a>
+</div>
+<div id="ref-bachl_computational_2024" class="csl-entry" role="listitem">
+Bachl, M., &amp; Scharkow, M. (2024). <em>Computational text analysis</em>. OSF. <a href="https://doi.org/10.31219/osf.io/3yhu8">https://doi.org/10.31219/osf.io/3yhu8</a>
+</div>
 <div id="ref-bruns_after_2019" class="csl-entry" role="listitem">
 Bruns, A. (2019). After the <span>„<span>APIcalypse</span>“</span>: social media platforms and their fight against critical scholarly research. <em>Information, Communication &amp; Society</em>, <em>22</em>(11), 1544–1566. <a href="https://doi.org/gf8r25">https://doi.org/gf8r25</a>
 </div>
@@ -1217,20 +1443,17 @@ Gilardi, F., Alizadeh, M., &amp; Kubli, M. (2023). <span>ChatGPT</span> outperfo
 <div id="ref-haim_computational_2023" class="csl-entry" role="listitem">
 Haim, M. (2023). <em>Computational <span>Communication</span> <span>Science</span>: <span>Eine</span> <span>Einführung</span></em>. Springer Fachmedien Wiesbaden. <a href="https://doi.org/10.1007/978-3-658-40171-9">https://doi.org/10.1007/978-3-658-40171-9</a>
 </div>
+<div id="ref-heseltine_large_2024" class="csl-entry" role="listitem">
+Heseltine, M., &amp; Clemm von Hohenberg, B. (2024). Large language models as a substitute for human experts in annotating political text. <em>Research &amp; Politics</em>, <em>11</em>(1), 20531680241236239. <a href="https://doi.org/gtkhqr">https://doi.org/gtkhqr</a>
+</div>
 <div id="ref-laurer_less_2023" class="csl-entry" role="listitem">
 Laurer, M., Atteveldt, W. van, Casas, A., &amp; Welbers, K. (2023). Less annotating, more classifying: <span>Addressing</span> the data scarcity issue of supervised machine learning with deep transfer learning and <span>BERT</span>-<span>NLI</span>. <em>Political Analysis</em>, 1–17. <a href="https://doi.org/10.1017/pan.2023.20">https://doi.org/10.1017/pan.2023.20</a>
-</div>
-<div id="ref-rathje_gpt_2023" class="csl-entry" role="listitem">
-Rathje, S., Mirea, D.-M., Sucholutsky, I., Marjieh, R., Robertson, C., &amp; Bavel, J. J. V. (2023). <em><span>GPT</span> is an effective tool for multilingual psychological text analysis</em>. PsyArXiv. <a href="https://doi.org/10.31234/osf.io/sekf5">https://doi.org/10.31234/osf.io/sekf5</a>
 </div>
 <div id="ref-stoll_developing_2023" class="csl-entry" role="listitem">
 Stoll, A., Wilms, L., &amp; Ziegele, M. (2023). Developing an incivility dictionary for <span>German</span> online discussions – a semi-automated approach combining human and artificial knowledge. <em>Communication Methods and Measures</em>, <em>17</em>(2), 131–149. <a href="https://doi.org/gsnfdn">https://doi.org/gsnfdn</a>
 </div>
-<div id="ref-tornberg_how_2023" class="csl-entry" role="listitem">
-Törnberg, P. (2023). <em>How to use <span>LLMs</span> for text analysis</em>. arXiv. <a href="https://doi.org/10.48550/arXiv.2307.13106">https://doi.org/10.48550/arXiv.2307.13106</a>
-</div>
-<div id="ref-winkler_individual_2022" class="csl-entry" role="listitem">
-Winkler, Y., Bachl, M., &amp; Scharkow, M. (2022). Individual users’ participation on political <span>Facebook</span> pages. <em>Journal of Quantitative Description: Digital Media</em>, <em>2</em>. <a href="https://doi.org/gs6x22">https://doi.org/gs6x22</a>
+<div id="ref-tornberg_best_2024" class="csl-entry" role="listitem">
+Törnberg, P. (2024). <em>Best practices for text annotation with large language models</em>. arXiv. <a href="https://doi.org/gtn9qf">https://doi.org/gtn9qf</a>
 </div>
 </div>
 </section></section>
@@ -1260,7 +1483,6 @@ Winkler, Y., Bachl, M., &amp; Scharkow, M. (2022). Individual users’ participa
       Reveal.initialize({
 'controlsAuto': true,
 'previewLinksAuto': false,
-'smaller': false,
 'pdfSeparateFragments': false,
 'autoAnimateEasing': "ease",
 'autoAnimateDuration': 1,
@@ -1515,18 +1737,7 @@ Winkler, Y., Bachl, M., &amp; Scharkow, M. (2022). Individual users’ participa
         }
         return false;
       }
-      const clipboard = new window.ClipboardJS('.code-copy-button', {
-        text: function(trigger) {
-          const codeEl = trigger.previousElementSibling.cloneNode(true);
-          for (const childEl of codeEl.children) {
-            if (isCodeAnnotation(childEl)) {
-              childEl.remove();
-            }
-          }
-          return codeEl.innerText;
-        }
-      });
-      clipboard.on('success', function(e) {
+      const onCopySuccess = function(e) {
         // button target
         const button = e.trigger;
         // don't keep focus
@@ -1558,11 +1769,50 @@ Winkler, Y., Bachl, M., &amp; Scharkow, M. (2022). Individual users’ participa
         }, 1000);
         // clear code selection
         e.clearSelection();
+      }
+      const getTextToCopy = function(trigger) {
+          const codeEl = trigger.previousElementSibling.cloneNode(true);
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+      }
+      const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+        text: getTextToCopy
       });
-      function tippyHover(el, contentFn) {
+      clipboard.on('success', onCopySuccess);
+      if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+        // For code content inside modals, clipBoardJS needs to be initialized with a container option
+        // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+        const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+          text: getTextToCopy,
+          container: window.document.getElementById('quarto-embedded-source-code-modal')
+        });
+        clipboardModal.on('success', onCopySuccess);
+      }
+        var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+        var mailtoRegex = new RegExp(/^mailto:/);
+          var filterRegex = new RegExp('/' + window.location.host + '/');
+        var isInternal = (href) => {
+            return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+        }
+        // Inspect non-navigation links and adorn them if external
+     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+        for (var i=0; i<links.length; i++) {
+          const link = links[i];
+          if (!isInternal(link.href)) {
+            // undo the damage that might have been done by quarto-nav.js in the case of
+            // links that we want to consider external
+            if (link.dataset.originalHref !== undefined) {
+              link.href = link.dataset.originalHref;
+            }
+          }
+        }
+      function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
         const config = {
           allowHTML: true,
-          content: contentFn,
           maxWidth: 500,
           delay: 100,
           arrow: false,
@@ -1572,8 +1822,17 @@ Winkler, Y., Bachl, M., &amp; Scharkow, M. (2022). Individual users’ participa
           interactive: true,
           interactiveBorder: 10,
           theme: 'light-border',
-          placement: 'bottom-start'
+          placement: 'bottom-start',
         };
+        if (contentFn) {
+          config.content = contentFn;
+        }
+        if (onTriggerFn) {
+          config.onTrigger = onTriggerFn;
+        }
+        if (onUntriggerFn) {
+          config.onUntrigger = onUntriggerFn;
+        }
           config['offset'] = [0,0];
           config['maxWidth'] = 700;
         window.tippy(el, config); 
@@ -1587,7 +1846,11 @@ Winkler, Y., Bachl, M., &amp; Scharkow, M. (2022). Individual users’ participa
           try { href = new URL(href).hash; } catch {}
           const id = href.replace(/^#\/?/, "");
           const note = window.document.getElementById(id);
-          return note.innerHTML;
+          if (note) {
+            return note.innerHTML;
+          } else {
+            return "";
+          }
         });
       }
       const findCites = (el) => {

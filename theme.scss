@@ -1,14 +1,15 @@
 /*-- scss:defaults --*/
 // fonts
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;700');
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;700&display=swap');
 
-$font-family-sans-serif: "Roboto Condensed", serif !default;
-$font-family-monospace: "Monaco" !default;
+body {
+  font-family: 'Source Sans 3', sans-serif;
+}
 $presentation-font-size-root: 48px;
 
 // colors
 $main-color: #2c2c2c;
-$alternate-color: #003366;
+$alternate-color: #004659;
 
 $body-bg: #ffffff !default;
 $body-color: $main-color !default;
@@ -16,17 +17,12 @@ $link-color: $alternate-color !default;
 $selection-bg: $main-color !default;
 
 // headings
-$presentation-heading-font: "Roboto Condensed", sans-serif !default;
 $presentation-heading-font-weight: 300 !default;
-
 $presentation-h1-font-size: 2em !default;
 $presentation-h2-font-size: 1.5em !default;
 $presentation-h3-font-size: 1em !default;
-//$presentation-heading-color: $main-color !default;
-//$presentation-heading-text-transform: uppercase !default;
 
 // code
-
 $code-block-font-size: .5em;
 $code-block-bg: $main-color;
 $code-bg: $main-color;

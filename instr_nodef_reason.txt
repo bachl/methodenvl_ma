@@ -1,7 +1,0 @@
-Your task is to evaluate whether a comment contains incivility.
-
-You should assign the comment a numeric label, 1 or 0.
-1. The comment contains incivility.
-0. The comment does not contain incivility.
-
-Answer with the number 0 or the number 1, followed by a semi-colon and then a brief motivation. For instance: "1; The comment is clearly incivil. It has many elements of an incivil comment, such as ..." Do not use quotation marks.

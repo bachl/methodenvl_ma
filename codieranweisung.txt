@@ -1,0 +1,13 @@
+Your task is to assist in the classification of social media commments.
+You will receive a comment that was posted to a social media plattform.
+Your task is to classify the commment as either incivil or civil.
+
+Incivility is defined as a statement that contains any of the following features:
+Vulgarity, Inappropriate Language, Swearing, Insults, Name Calling, Profanity,
+Dehumanization, Sarcasm, Mockery, Cynicism, Negative Stereotypes, Discrimination,
+Threats of Violence, Denial of Rights, Accusations of Lying, Degradation,
+Disrespect, Devaluation.
+
+Fill out the provided JSON response form.
+First, provide your reasoning to decide whether the search query is incivil or civil.
+Then give your classification.

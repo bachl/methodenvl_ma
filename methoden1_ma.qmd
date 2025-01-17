@@ -1,8 +1,7 @@
 ---
 title: |
-       | Kommunikationsforschung mit APIs:
-       | Eine ~~nicht~~ technische Einführung
-subtitle: "Vorlesung: Methoden der empirischen Kommunikations- und Medienforschung I / Datenerhebung, Wintersemester 2023/2024"
+       | APIs für Datenerhebung und Inhaltsanalyse
+subtitle: "Vorlesung: Methoden der empirischen Kommunikations- und Medienforschung I / Datenerhebung, Wintersemester 2024/2025"
 lang: "de"
 date: today
 date-format: "DD. MM. YYYY"
@@ -20,9 +19,9 @@ format:
       history: false
       smaller: false
       title-slide-attributes:
-        data-background-image: https://upload.wikimedia.org/wikipedia/de/7/71/Fub-logo.svg
+        data-background-image: https://bachl.quarto.pub/do-women-write-more-about-women/fu-logo-240903-RGB-s.svg
         data-background-position: "top right"
-        data-background-size: auto
+        data-background-size: auto 200px
 css: colors.css
 bibliography: references.bib
 csl: https://www.zotero.org/styles/apa
@@ -42,25 +41,34 @@ execute:
 
 ```{r}
 #| eval: false
-library(httr)
+library(httr2)
 library(jsonlite)
+
 key = readLines("openai_key.txt")
-url <- "https://api.openai.com/v1/images/generations"
-headers <- c(
-  "Content-Type" = "application/json",
-  "Authorization" = paste0("Bearer ", key)
-)
-body <- list(
-  model = "dall-e-3",
-  prompt = "A team of communication researchers using digital research methods and computational methods, cyberpunk style",
-  n = 1,
-  size = "1024x1024"
-)
-response <- POST(url, body = toJSON(body, auto_unbox = TRUE), encode = "json", add_headers(.headers=headers))
-download.file(url = content(response)$data[[1]]$url, destfile = "images/as_digimeth.png")
+
+req = request("https://api.openai.com/v1/images/generations") |>
+  req_headers(
+    "Content-Type" = "application/json",
+    "Authorization" = paste0("Bearer ", key)
+  ) |>
+  req_body_json(list(
+    model = "dall-e-3",
+    prompt = "A team of communication researchers using digital research methods and computational methods, cyberpunk style",
+    n = 1,
+    size = "1024x1024"
+  )) |>
+  req_perform()
+
+image_url = resp_body_json(req)$data[[1]]$url
+download.file(url = image_url, destfile = "as_digimeth.png")
 ```
 
-Nachmachen: 👉 `bsp_dall-e.R` (mit OpenAI-Account, kostet $0.04/Bild)
+Nachmachen: 👉 `bsp_dall-e.R` (mit OpenAI-Account, $0.04/Bild)
+
+## Arbeitsstelle Digitale Forschungsmethoden
+
+![Real life](https://www.polsoz.fu-berlin.de/kommwiss/arbeitsstellen/digitale-methoden/C36EC0EA-05C8-49F8-B9D1-9A91E577CE26-Kopie.jpg)
+
 
 ## Präsentation und Code
 
@@ -72,9 +80,7 @@ Nachmachen: 👉 `bsp_dall-e.R` (mit OpenAI-Account, kostet $0.04/Bild)
 plot(qrcode::qr_code("https://bachl.github.io/methodenvl_ma/"))
 ```
 
-Präsentation: <https://bachl.github.io/methodenvl_ma/>
-
-Code: <https://github.com/bachl/methodenvl_ma>
+Material: [Präsentation HTML](https://bachl.github.io/methodenvl_ma/), [Präsentation PDF](https://github.com/bachl/methodenvl_ma/blob/main/methoden1_ma.pdf), [Code](https://github.com/bachl/methodenvl_ma)
 
 ## Agenda
 
@@ -114,14 +120,15 @@ Code: <https://github.com/bachl/methodenvl_ma>
 ### Anfrage
 
 ```{r}
-bb_quote <- readLines("https://api.breakingbadquotes.xyz/v1/quotes")
+library(httr2); library(jsonlite)
+bb_quote = request(base_url = "https://api.breakingbadquotes.xyz/v1/quotes") |> req_perform()
 ```
 
 ::: {.fragment}
 ### Antwort
 
 ```{r}
-bb_quote |> jsonlite::prettify()
+bb_quote |> resp_body_string() |> prettify()
 ```
 :::
 
@@ -149,38 +156,41 @@ bb_quote |> jsonlite::prettify()
 
 # Vor der *APIcalypse*: Kommunikationsspuren auf Social Media
 
-## Bundestagswahlkampf 2017 auf Facebook
+## (Alternative) media sources in AfD-centered Facebook discussions
 
-![Datenstruktur des Projekts Multilevel Flows of Political Communication on Facebook (Bachl & Scharkow, 2020-2023)](images/clipboard-3907966241.png)
+> The study is based on all posts, comments,
+and replies on core AfD Facebook
+pages during the year 2016, as
+they could be retrieved during the last
+week of the year. The Facebook Graph
+API (https://developers.facebook.com/docs/graphapi)
+was used for the main data collection.
 
-- Facebook Graph API, zusätzlich YouTube Data API und Scraping
+:::{.aside}
+[@bachl_alternative_2018]
+:::
 
-- Abfrage von ca. 400 politischen FB-Seiten alle 6 Stunden über ca. ein Jahr
+## (Alternative) media sources in AfD-centered Facebook discussions
 
+> the sample
+consisted of 122 pages, mostly of
+regional and local sections of the party,
+of its youth organization Junge Alternative,
+and of AfD politicians. All
+posts on these pages (n = 170,033), all
+comments to the posts (n = 1,455,200),
+and all replies to the comments (n =
+960,077) were retrieved (overall n =
+2,585,310).
 
-<!-- ## Digitale Verhaltensspuren auf Individualebene -->
+:::{.aside}
+[@bachl_alternative_2018]
+:::
 
-<!-- ![[@winkler_individual_2022]](images/clipboard-1478384870.png) -->
+##
 
-## Digitale Verhaltensspuren auf Individualebene
+![[@bachl_alternative_2018]](images/bachl2018.png)
 
-![[@winkler_individual_2022]](images/clipboard-1996524043.png)
-
-<!-- ## Digitale Verhaltensspuren auf Individualebene -->
-
-<!-- ![[@winkler_individual_2022]](images/clipboard-685317092.png) -->
-
-<!-- ## Digitale Verhaltensspuren auf Individualebene -->
-
-<!-- ### Vorhersage inziviler Kommentare -->
-
-<!-- ![(Winkler, Scharkow, Bachl & Jürgens, working paper)](images/meta_offensive.png) -->
-
-## Digitale Verhaltensspuren auf Individualebene
-
-### Vorhersage des Ausstiegs aus der Diskussion
-
-![(Winkler, Scharkow, Bachl & Jürgens, working paper)](images/meta_islast.png)
 
 ## Post-API-age & APIcalypse
 
@@ -202,7 +212,7 @@ bb_quote |> jsonlite::prettify()
 
     - Keine (praktikablen) Zugänge zu Facebook, Instagram, Twitter
 
-    - Eingeschränkter Zugang zu TikTok, YouTube (aber kaum zu SN-Features)
+    - Eingeschränkter Zugang zu TikTok, Reddit, YouTube (aber kaum zu SN-Features)
 
     - Zugang zu kleineren Plattformen, z.B. BlueSky, Mastodon
 
@@ -222,7 +232,7 @@ bb_quote |> jsonlite::prettify()
 
 ## Umsetzung mit `R` und `{httr2}`
 
-- Beispiel: Aufmerksamkeit für Olaf Scholz, Robert Habeck und Christian Lindner in den letzten drei Wochen --- gemessen an den Aufrufen ihrer Wikipedia-Seiten
+- Beispiel: Aufmerksamkeit für Spitzenkandidat:innen in den letzten drei Wochen --- gemessen an den Aufrufen ihrer Wikipedia-Seiten
 
 . . . 
 
@@ -254,16 +264,14 @@ library(tidyverse) # Datenmanipulation und Grafik
 
 ```{r}
 #| output-location: fragment
-req = request(
-  base_url = "https://de.wikipedia.org/w/api.php"
-) |> 
+req = request(base_url = "https://de.wikipedia.org/w/api.php") |> 
   req_url_query(!!!list(
     action = "query",
     format = "json",
     prop = "pageviews",
-    titles = c("Olaf_Scholz", 
-               "Robert_Habeck", 
-               "Christian_Lindner"),
+    titles = c("Olaf_Scholz", "Robert_Habeck",
+               "Christian_Lindner", "Alice_Weidel",
+               "Sahra_Wagenknecht", "Friedrich_Merz"),
     pvipdays = 21),
     .multi = "pipe")
 req |> 
@@ -280,7 +288,7 @@ resp = req|>
 
 resp |> 
   resp_body_string() |> 
-  jsonlite::prettify()
+  prettify()
 ```
 
 ## Antwort konvertieren und plotten
@@ -297,6 +305,7 @@ resp |>
   unnest(pageviews) |> 
   ggplot(aes(date, pageviews, color = title)) + 
   geom_line() + 
+  scale_y_log10(labels = scales::label_comma()) +
   theme_minimal()
 ```
 
@@ -325,16 +334,16 @@ resp |>
 
 ## Bag-of-Words Machine Learning
 
-![Abbildungen von [Philipp K. Masur](https://philippmasur.de/)](images/masur_classic_ml.png)
+![Abbildungen von [Philipp K. Masur](https://philippmasur.de/); Zur Entwicklung von Computational Text Analysis: @bachl_computational_2024](images/masur_classic_ml.png)
 
 
 ## Transfer Learning
 
-![Abbildungen von [Philipp K. Masur](https://philippmasur.de/)](images/masur_transformer_ml.png)
+![Abbildungen von [Philipp K. Masur](https://philippmasur.de/); Zur Entwicklung von Computational Text Analysis: @bachl_computational_2024](images/masur_transformer_ml.png)
 
 ## Zero-shot classification
 
-![Abbildungen von [Philipp K. Masur](https://philippmasur.de/)](images/masur_zeroshot.png)
+![Abbildungen von [Philipp K. Masur](https://philippmasur.de/); Zur Entwicklung von Computational Text Analysis: @bachl_computational_2024](images/masur_zeroshot.png)
 
 ## Zero-shot classification: Hype (?)
 
@@ -345,7 +354,7 @@ resp |>
 :::
 
 ::: {.column width="50%"}
-![[@rathje_gpt_2023]](images/rathje.png)
+![[@heseltine_large_2024]](images/heseltine2024.png)
 :::
 
 ::::
@@ -358,7 +367,7 @@ resp |>
 
 . . . 
 
-- Klassifikation mit [OpenAI GPT-4](https://openai.com/gpt-4) (bekannt aus ChatGPT Premium) und `httr2`
+- Klassifikation mit [OpenAI GPT-4o](https://openai.com/gpt-4o) und `httr2`
 
 - Nachmachen: 👉 `bsp_zero_shot_openai.R` (mit OpenAI-Account)
 
@@ -435,13 +444,46 @@ req |>
 
 ### Codieranweisung: Was soll KI-Assistent tun?
 ```{r}
-instr = paste(readLines("instr_nodef_reason.txt"), collapse = "\n")
+instr = paste(readLines("codieranweisung.txt"), collapse = "\n")
 cat(instr)
 ```
 
-[@tornberg_how_2023]
+[@tornberg_best_2024]
 
 ## Prompt (2)
+
+### Kategoriensystem: Wie soll die Antwort aussehen?
+```{r}
+#| output-location: column
+response_format = list(
+  type = "json_schema",
+  json_schema = list(
+    name = "social_media_incivility",
+    schema = list(
+      type = "object",
+      properties = list(
+        reasoning = list(
+          description = "Short text to explain your reasoning",
+          type = "string"
+        ),
+        classification = list(
+          description = "Classification into incivil or civil",
+          type = "string",
+          enum = c("incivil", "civil")
+        )
+      ),
+      additionalProperties = FALSE,
+      required = c("reasoning", "classification")
+    )
+  )
+)
+response_format |> 
+  toJSON() |> 
+  prettify()
+```
+
+
+## Prompt (3)
 
 ### Codiereinheiten: Was soll klassifiziert werden?
 ```{r}
@@ -455,13 +497,14 @@ cat(cod, sep = "\n")
 req |> 
   req_auth_bearer_token(key) |> 
   req_body_json(list(
-    model = "gpt-4",
+    model = "gpt-4o",
     messages = list(
       list(role = "system", content = instr),
       list(role = "user", content = cod[1])
     ),
+    response_format = response_format,
     temperature = 0,
-    max_tokens = 50
+    max_completion_tokens = 500
   )) |> 
   req_dry_run()
 ```
@@ -474,13 +517,14 @@ req |>
 resp = req |> 
   req_auth_bearer_token(key) |> 
   req_body_json(list(
-    model = "gpt-4",
+    model = "gpt-4o",
     messages = list(
       list(role = "system", content = instr),
       list(role = "user", content = cod[1])
     ),
+    response_format = response_format,
     temperature = 0,
-    max_tokens = 50
+    max_completion_tokens = 500
   )) |> 
   req_perform()
 
@@ -494,19 +538,21 @@ resp |>
 ```{r gpt4call2}
 #| cache: true
 #| code-fold: true
+# Anfragen für alle Kommentare ####
 req_list = cod |> 
   map(~ {
     req |> 
       req_auth_bearer_token(key) |> 
       req_body_json(list(
-        model = "gpt-4",
+        model = "gpt-4o",
         messages = list(
           list(role = "system", content = instr),
           list(role = "user", content = .x)
         ),
+        response_format = response_format,
         temperature = 0,
-        max_tokens = 50
-      ))
+        max_completion_tokens = 500
+      )) 
   })
 
 # Antworten für alle Kommentare ####
@@ -514,18 +560,20 @@ resp_list = req_list |>
   req_perform_parallel()
 
 # Extrahieren und aufbereiten ####
-tibble(
-  Kommentar = cod,
-  Klassifikation = resp_list |> 
-    map_chr( ~ {
-      .x |> 
-        resp_body_json() |> 
-        _$choices |> 
-        _[[1]] |> 
-        _$message |> 
-        _$content
-    })
-) |> 
+tibble(Kommentar = cod) |> 
+  bind_cols(
+    resp_list |> 
+      map_dfr( ~ {
+        .x |> 
+          resp_body_json() |> 
+          _$choices |> 
+          _[[1]] |> 
+          _$message |> 
+          _$content |> 
+          fromJSON() |> 
+          as_tibble()
+      })
+  ) |> 
   knitr::kable()
 ```
 
@@ -537,10 +585,10 @@ tibble(
 
     - Verbesserungen durch weiterentwickelte Modelle
     - Evaluation der Performance: Was geht, was (noch) nicht?
-    - Prompt engneering: Welche Codieranweisungen sind besser?
+    - Prompt engineering: Welche Codieranweisungen sind besser?
     - Forschungethische Fragen: Biases, Reproduzierbarkeit, Abgängigkeit von proprietären Modellen
 
-- Wenn Sie sich für Inhaltsanalyse interessieren: Jetzt einsteigen!
+- Selbst ausprobieren - es ist nicht so schwer, wie es am Anfang aussieht.
 
 # Fragen?
 

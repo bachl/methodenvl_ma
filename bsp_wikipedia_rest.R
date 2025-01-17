@@ -11,10 +11,10 @@ req = request(base_url = "https://wikimedia.org/api/rest_v1/metrics/pageviews/pe
     project = "de.wikipedia.org",
     access = "all-access",
     agent = "user",
-    article = "Olaf_Scholz",
+    article = "Alice_Weidel",
     granularity = "daily",
     start = "20210101",
-    end = "20240112"
+    end = "20250117"
   )
   )
 

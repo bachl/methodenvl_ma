@@ -9,7 +9,9 @@ req = request(base_url = "https://de.wikipedia.org/w/api.php") |>
     action = "query",
     format = "json",
     prop = "pageviews",
-    titles = c("Olaf_Scholz", "Robert_Habeck", "Christian_Lindner"),
+    titles = c("Olaf_Scholz", "Robert_Habeck",
+               "Christian_Lindner", "Alice_Weidel",
+               "Sahra_Wagenknecht", "Friedrich_Merz"),
     pvipdays = 21),
     .multi = "pipe")
 
@@ -36,6 +38,7 @@ resp |>
   unnest(pageviews) |> 
   ggplot(aes(date, pageviews, color = title)) + 
   geom_line() + 
+  scale_y_log10(labels = scales::label_comma()) +
   theme_minimal()
 
 
