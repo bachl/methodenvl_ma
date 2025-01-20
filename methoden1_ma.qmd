@@ -1,6 +1,5 @@
 ---
-title: |
-       | APIs für Datenerhebung und Inhaltsanalyse
+title: APIs für Datenerhebung und Inhaltsanalyse
 subtitle: "Vorlesung: Methoden der empirischen Kommunikations- und Medienforschung I / Datenerhebung, Wintersemester 2024/2025"
 lang: "de"
 date: today
@@ -208,7 +207,7 @@ and all replies to the comments (n =
 
 ## Post-API-age & APIcalypse
 
-- APIs der meisten großen Social-Media-Plattformen mehr oder weniger geschlossen
+- APIs der meisten großen Social-Media-Plattformen mehr oder weniger geschlossen oder für Grundlagenforschung unbezahlbar.
 
     - Keine (praktikablen) Zugänge zu Facebook, Instagram, Twitter
 
