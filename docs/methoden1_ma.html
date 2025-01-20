@@ -538,7 +538,7 @@ Marko Bachl
 <div class="cell-output cell-output-stdout">
 <pre><code>[
     {
-        "quote": "Because I say so.",
+        "quote": "We're done when I say we're done.",
         "author": "Walter White"
     }
 ]
@@ -1214,10 +1214,13 @@ Then give your classification.</code></pre>
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a aria-hidden="true" tabindex="-1"></a>cod <span class="ot">=</span> <span class="fu">readLines</span>(<span class="st">"comments.txt"</span>)</span>
 <span id="cb20-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(cod, <span class="at">sep =</span> <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Die Kartoffelbauern sollen daheim bleiben!
-Dein Hund sieht super süß aus.
-Dir sollte man bald mal einen Besuch abstatten.
-Du geile Sau!</code></pre>
+<pre><code>Das Outfit sieht wirklich toll aus heute &lt;3
+Du bist ein gefährlicher linksextremer Verschwörungstheoretiker!
+LÜGENPRESSE!!!11!
+Du Clown!
+Du Clown :)
+Schlafschafe
+Auf Fotos bist du hübscher.</code></pre>
 </div>
 </div>
 </section>
@@ -1245,9 +1248,9 @@ Accept: */*
 Accept-Encoding: deflate, gzip
 Authorization: &lt;REDACTED&gt;
 Content-Type: application/json
-Content-Length: 1302
+Content-Length: 1303
 
-{"model":"gpt-4o","messages":[{"role":"system","content":"Your task is to assist in the classification of social media commments.\nYou will receive a comment that was posted to a social media plattform.\nYour task is to classify the commment as either incivil or civil.\n\nIncivility is defined as a statement that contains any of the following features:\nVulgarity, Inappropriate Language, Swearing, Insults, Name Calling, Profanity,\nDehumanization, Sarcasm, Mockery, Cynicism, Negative Stereotypes, Discrimination,\nThreats of Violence, Denial of Rights, Accusations of Lying, Degradation,\nDisrespect, Devaluation.\n\nFill out the provided JSON response form.\nFirst, provide your reasoning to decide whether the search query is incivil or civil.\nThen give your classification."},{"role":"user","content":"Die Kartoffelbauern sollen daheim bleiben!"}],"response_format":{"type":"json_schema","json_schema":{"name":"social_media_incivility","schema":{"type":"object","properties":{"reasoning":{"description":"Short text to explain your reasoning","type":"string"},"classification":{"description":"Classification into incivil or civil","type":"string","enum":["incivil","civil"]}},"additionalProperties":false,"required":["reasoning","classification"]}}},"temperature":0,"max_completion_tokens":500}</code></pre>
+{"model":"gpt-4o","messages":[{"role":"system","content":"Your task is to assist in the classification of social media commments.\nYou will receive a comment that was posted to a social media plattform.\nYour task is to classify the commment as either incivil or civil.\n\nIncivility is defined as a statement that contains any of the following features:\nVulgarity, Inappropriate Language, Swearing, Insults, Name Calling, Profanity,\nDehumanization, Sarcasm, Mockery, Cynicism, Negative Stereotypes, Discrimination,\nThreats of Violence, Denial of Rights, Accusations of Lying, Degradation,\nDisrespect, Devaluation.\n\nFill out the provided JSON response form.\nFirst, provide your reasoning to decide whether the search query is incivil or civil.\nThen give your classification."},{"role":"user","content":"Das Outfit sieht wirklich toll aus heute &lt;3"}],"response_format":{"type":"json_schema","json_schema":{"name":"social_media_incivility","schema":{"type":"object","properties":{"reasoning":{"description":"Short text to explain your reasoning","type":"string"},"classification":{"description":"Classification into incivil or civil","type":"string","enum":["incivil","civil"]}},"additionalProperties":false,"required":["reasoning","classification"]}}},"temperature":0,"max_completion_tokens":500}</code></pre>
 </div>
 </div>
 </section>
@@ -1275,16 +1278,16 @@ Content-Length: 1302
 </div><div class="column">
 <div class="cell-output cell-output-stdout">
 <pre><code>{
-    "id": "chatcmpl-ArhOLLklZ9mvUJ8JPvghL5OyrB31g",
+    "id": "chatcmpl-Arj7cfSPYhq4EgmOI7KuVaZOym4Fb",
     "object": "chat.completion",
-    "created": 1737361545,
+    "created": 1737368196,
     "model": "gpt-4o-2024-08-06",
     "choices": [
         {
             "index": 0,
             "message": {
                 "role": "assistant",
-                "content": "{\"reasoning\":\"The comment 'Die Kartoffelbauern sollen daheim bleiben!' translates to 'The potato farmers should stay at home!' in English. This statement can be interpreted as dismissive or exclusionary towards a group of people, potentially implying that they are not welcome or should not participate in certain activities. This can be seen as a form of discrimination or devaluation, which falls under the category of incivility.\",\"classification\":\"incivil\"}",
+                "content": "{\"reasoning\":\"The comment is a positive compliment about someone's outfit and contains no elements of incivility such as insults, vulgarity, or disrespect.\",\"classification\":\"civil\"}",
                 "refusal": null
             },
             "logprobs": null,
@@ -1292,9 +1295,9 @@ Content-Length: 1302
         }
     ],
     "usage": {
-        "prompt_tokens": 246,
-        "completion_tokens": 92,
-        "total_tokens": 338,
+        "prompt_tokens": 245,
+        "completion_tokens": 36,
+        "total_tokens": 281,
         "prompt_tokens_details": {
             "cached_tokens": 0,
             "audio_tokens": 0
@@ -1357,10 +1360,10 @@ Content-Length: 1302
 <span id="cb26-37"><a aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<table class="caption-top" style="width:100%;">
+<table class="caption-top">
 <colgroup>
-<col style="width: 11%">
-<col style="width: 84%">
+<col style="width: 16%">
+<col style="width: 80%">
 <col style="width: 3%">
 </colgroup>
 <thead>
@@ -1372,23 +1375,38 @@ Content-Length: 1302
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">Die Kartoffelbauern sollen daheim bleiben!</td>
-<td style="text-align: left;">The comment suggests that a group of people, in this case, ‘potato farmers’, should stay at home. This could be interpreted as a form of discrimination or devaluation, as it implies that this group is not welcome or should not participate in certain activities. Such statements can be seen as disrespectful or degrading towards the group mentioned.</td>
-<td style="text-align: left;">incivil</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Dein Hund sieht super süß aus.</td>
-<td style="text-align: left;">The comment is a compliment about someone’s dog being cute. It does not contain any features of incivility such as vulgarity, insults, or disrespect.</td>
+<td style="text-align: left;">Das Outfit sieht wirklich toll aus heute &lt;3</td>
+<td style="text-align: left;">The comment is a positive compliment about someone’s outfit and does not contain any features of incivility such as insults, vulgarity, or disrespect.</td>
 <td style="text-align: left;">civil</td>
 </tr>
+<tr class="even">
+<td style="text-align: left;">Du bist ein gefährlicher linksextremer Verschwörungstheoretiker!</td>
+<td style="text-align: left;">The comment includes name-calling and an accusation, labeling someone as a ‘dangerous left-wing extremist conspiracy theorist,’ which is disrespectful and demeaning.</td>
+<td style="text-align: left;">incivil</td>
+</tr>
 <tr class="odd">
-<td style="text-align: left;">Dir sollte man bald mal einen Besuch abstatten.</td>
-<td style="text-align: left;">The comment suggests a visit to the person, which can be interpreted as a threat of violence or intimidation, especially if the context implies a negative or aggressive intent. This makes the comment incivil.</td>
+<td style="text-align: left;">LÜGENPRESSE!!!11!</td>
+<td style="text-align: left;">The term ‘Lügenpresse’ is a derogatory term that translates to ‘lying press’ and is used to accuse the media of being deceitful. It is often associated with accusations of lying and disrespect towards journalists, which falls under the category of incivility.</td>
 <td style="text-align: left;">incivil</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Du geile Sau!</td>
-<td style="text-align: left;">The phrase ‘Du geile Sau!’ can be considered vulgar and inappropriate language. It uses a term that can be interpreted as a derogatory or dehumanizing expression, which fits the criteria for incivility.</td>
+<td style="text-align: left;">Du Clown!</td>
+<td style="text-align: left;">The comment ‘Du Clown!’ can be considered as name-calling, which is a form of insult. Name-calling is a feature of incivility as it devalues and disrespects the person being addressed.</td>
+<td style="text-align: left;">incivil</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Du Clown :)</td>
+<td style="text-align: left;">The comment ‘Du Clown :)’ can be interpreted as name-calling or mockery, which are features of incivility. The use of ‘clown’ in this context is likely intended to belittle or insult the person it is directed at, even if it is accompanied by a smiley face.</td>
+<td style="text-align: left;">incivil</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Schlafschafe</td>
+<td style="text-align: left;">The term ‘Schlafschafe’ is a derogatory term in German, often used to insult or mock people who are perceived as blindly following authority or mainstream opinions. It can be considered a form of name-calling and dehumanization, as it implies that the person is like a ‘sheep’ that is asleep, lacking independent thought.</td>
+<td style="text-align: left;">incivil</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Auf Fotos bist du hübscher.</td>
+<td style="text-align: left;">The comment implies that the person looks better in photos than in real life, which can be interpreted as a form of mockery or sarcasm. This can be seen as a subtle insult or devaluation of the person’s appearance in real life.</td>
 <td style="text-align: left;">incivil</td>
 </tr>
 </tbody>
